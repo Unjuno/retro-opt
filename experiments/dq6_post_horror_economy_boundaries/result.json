@@ -1,0 +1,64 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-post-horror-economy-boundaries-v0",
+  "status": "structural-sensitivity-only",
+  "empirical_claim": false,
+  "iron_shield_price": 720,
+  "iron_shield_count": 2,
+  "total_spend_gold": 1440,
+  "low_gold_recovery_threshold": 140,
+  "assumptions": [
+    "all listed inflows are realized before shield purchases",
+    "transaction and detour time are excluded",
+    "equipment combat value and future resale value are excluded",
+    "the <=140G branch is a public-chart reference boundary, not a proven optimum"
+  ],
+  "sources": [
+    "https://mamemommm.com/dq6_chart_mmm",
+    "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+  ],
+  "rows": [
+    {
+      "scenario_id": "no_optional_inflow",
+      "known_inflows": [],
+      "total_inflow_gold": 0,
+      "minimum_starting_gold_for_two_shields": 1440,
+      "starting_gold_window_where_two_shields_are_feasible_and_post_shop_gold_le_140": [1440, 1580]
+    },
+    {
+      "scenario_id": "take_410g_chest",
+      "known_inflows": [410],
+      "total_inflow_gold": 410,
+      "minimum_starting_gold_for_two_shields": 1030,
+      "starting_gold_window_where_two_shields_are_feasible_and_post_shop_gold_le_140": [1030, 1170]
+    },
+    {
+      "scenario_id": "legacy_sell_iron_claw_and_scale_shield",
+      "known_inflows": [525, 135],
+      "total_inflow_gold": 660,
+      "minimum_starting_gold_for_two_shields": 780,
+      "starting_gold_window_where_two_shields_are_feasible_and_post_shop_gold_le_140": [780, 920]
+    },
+    {
+      "scenario_id": "legacy_sales_plus_410g",
+      "known_inflows": [410, 525, 135],
+      "total_inflow_gold": 1070,
+      "minimum_starting_gold_for_two_shields": 370,
+      "starting_gold_window_where_two_shields_are_feasible_and_post_shop_gold_le_140": [370, 510]
+    },
+    {
+      "scenario_id": "current_reference_sale_bundle",
+      "known_inflows": [697],
+      "total_inflow_gold": 697,
+      "minimum_starting_gold_for_two_shields": 743,
+      "starting_gold_window_where_two_shields_are_feasible_and_post_shop_gold_le_140": [743, 883]
+    },
+    {
+      "scenario_id": "current_bundle_plus_410g",
+      "known_inflows": [410, 697],
+      "total_inflow_gold": 1107,
+      "minimum_starting_gold_for_two_shields": 333,
+      "starting_gold_window_where_two_shields_are_feasible_and_post_shop_gold_le_140": [333, 473]
+    }
+  ]
+}
