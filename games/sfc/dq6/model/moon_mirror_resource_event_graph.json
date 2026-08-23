@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "graph_id": "dq6-moon-mirror-resource-v0",
   "platform": "sfc",
   "game": "dragon-quest-vi-jp",
@@ -29,7 +29,7 @@
           "to": "poison_zombies_prebattle",
           "duration_model": "unknown:iron-breastplate-detour",
           "deterministic_effects": [
-            "iron_breastplate:+1",
+            "personal:mireille:iron_breastplate:+1",
             "mark:moon_mirror_iron_breastplate_collected"
           ],
           "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
@@ -63,7 +63,8 @@
             "bag",
             "iron_shield_count",
             "iron_breastplate",
-            "speed_ring_holder"
+            "speed_ring_holder",
+            "counters"
           ],
           "random_effects": [
             "battle_time",
@@ -125,7 +126,7 @@
           "to": "moon_mirror_segment_complete",
           "duration_model": "unknown:moon-mirror-strength-seed-detour",
           "deterministic_effects": [
-            "strength_seed:+1",
+            "personal:hassan:strength_seed:+1",
             "mark:moon_mirror_strength_seed_collected"
           ],
           "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
