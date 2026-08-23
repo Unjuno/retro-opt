@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-horizon-v0",
+  "status": "sensitivity-only",
+  "empirical_claim": false,
+  "target_exp": 847,
+  "metal_probability_assumption": 0.05,
+  "encounter_cost_seconds": 10.0,
+  "downstream_penalty_seconds": 30.0,
+  "rows": [
+    {"current_exp": 800, "opportunities_left": 1, "action": "skip", "value_seconds": 30.0, "q_skip_seconds": 30.0, "q_fight_seconds": 38.5, "absolute_margin_seconds": 8.5, "tie": false},
+    {"current_exp": 800, "opportunities_left": 2, "action": "skip", "value_seconds": 30.0, "q_skip_seconds": 30.0, "q_fight_seconds": 37.949, "absolute_margin_seconds": 7.949, "tie": false},
+    {"current_exp": 800, "opportunities_left": 3, "action": "fight", "value_seconds": 27.442, "q_skip_seconds": 30.0, "q_fight_seconds": 27.442, "absolute_margin_seconds": 2.558, "tie": false},
+    {"current_exp": 805, "opportunities_left": 1, "action": "skip", "value_seconds": 30.0, "q_skip_seconds": 30.0, "q_fight_seconds": 38.5, "absolute_margin_seconds": 8.5, "tie": false},
+    {"current_exp": 805, "opportunities_left": 2, "action": "fight", "value_seconds": 28.164, "q_skip_seconds": 30.0, "q_fight_seconds": 28.164, "absolute_margin_seconds": 1.836, "tie": false},
+    {"current_exp": 805, "opportunities_left": 3, "action": "fight", "value_seconds": 22.388, "q_skip_seconds": 28.164, "q_fight_seconds": 22.388, "absolute_margin_seconds": 5.776, "tie": false},
+    {"current_exp": 810, "opportunities_left": 1, "action": "skip", "value_seconds": 30.0, "q_skip_seconds": 30.0, "q_fight_seconds": 38.5, "absolute_margin_seconds": 8.5, "tie": false},
+    {"current_exp": 810, "opportunities_left": 2, "action": "fight", "value_seconds": 19.5, "q_skip_seconds": 30.0, "q_fight_seconds": 19.5, "absolute_margin_seconds": 10.5, "tie": false},
+    {"current_exp": 810, "opportunities_left": 3, "action": "skip", "value_seconds": 19.5, "q_skip_seconds": 19.5, "q_fight_seconds": 19.5, "absolute_margin_seconds": 0.0, "tie": true},
+    {"current_exp": 823, "opportunities_left": 1, "action": "skip", "value_seconds": 30.0, "q_skip_seconds": 30.0, "q_fight_seconds": 32.8, "absolute_margin_seconds": 2.8, "tie": false},
+    {"current_exp": 823, "opportunities_left": 2, "action": "fight", "value_seconds": 17.6, "q_skip_seconds": 30.0, "q_fight_seconds": 17.6, "absolute_margin_seconds": 12.4, "tie": false},
+    {"current_exp": 823, "opportunities_left": 3, "action": "skip", "value_seconds": 17.6, "q_skip_seconds": 17.6, "q_fight_seconds": 17.6, "absolute_margin_seconds": 0.0, "tie": true},
+    {"current_exp": 824, "opportunities_left": 1, "action": "fight", "value_seconds": 27.1, "q_skip_seconds": 30.0, "q_fight_seconds": 27.1, "absolute_margin_seconds": 2.9, "tie": false},
+    {"current_exp": 824, "opportunities_left": 2, "action": "fight", "value_seconds": 15.7, "q_skip_seconds": 27.1, "q_fight_seconds": 15.7, "absolute_margin_seconds": 11.4, "tie": false},
+    {"current_exp": 824, "opportunities_left": 3, "action": "skip", "value_seconds": 15.7, "q_skip_seconds": 15.7, "q_fight_seconds": 15.7, "absolute_margin_seconds": 0.0, "tie": true},
+    {"current_exp": 825, "opportunities_left": 1, "action": "fight", "value_seconds": 27.1, "q_skip_seconds": 30.0, "q_fight_seconds": 27.1, "absolute_margin_seconds": 2.9, "tie": false},
+    {"current_exp": 825, "opportunities_left": 2, "action": "fight", "value_seconds": 15.7, "q_skip_seconds": 27.1, "q_fight_seconds": 15.7, "absolute_margin_seconds": 11.4, "tie": false},
+    {"current_exp": 825, "opportunities_left": 3, "action": "skip", "value_seconds": 15.7, "q_skip_seconds": 15.7, "q_fight_seconds": 15.7, "absolute_margin_seconds": 0.0, "tie": true},
+    {"current_exp": 828, "opportunities_left": 1, "action": "fight", "value_seconds": 10.0, "q_skip_seconds": 30.0, "q_fight_seconds": 10.0, "absolute_margin_seconds": 20.0, "tie": false},
+    {"current_exp": 828, "opportunities_left": 2, "action": "skip", "value_seconds": 10.0, "q_skip_seconds": 10.0, "q_fight_seconds": 10.0, "absolute_margin_seconds": 0.0, "tie": true},
+    {"current_exp": 828, "opportunities_left": 3, "action": "skip", "value_seconds": 10.0, "q_skip_seconds": 10.0, "q_fight_seconds": 10.0, "absolute_margin_seconds": 0.0, "tie": true}
+  ]
+}
