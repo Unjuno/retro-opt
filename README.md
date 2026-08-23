@@ -4,6 +4,20 @@
 
 最初の実証対象として、スーパーファミコン版『ドラゴンクエストVI 幻の大地』の Normal Ending RTA を扱います。
 
+## 現在の開発方針: Software-first
+
+ハードウェア取得系は重要な構成要素ですが、現在は blocker にしません。ROM dumper、FPGA reader、logic analyzer、FC/SFC cartridge adapter は将来の実機取得・検証経路として設計を残しつつ、当面は ROM がなくても進められる以下を優先します。
+
+- ゲーム非依存の State / Observation / Action / Transition interface
+- human-observable policy の制約
+- stochastic shortest path / Pareto / dominance pruning 等の solver core
+- 再現可能な experiment / result schema
+- 既存 DQ6 RTA chart の human baseline / Chart Atlas 化
+- emulator harness の抽象 interface
+- DQ6 Game Adapter の schema / event graph
+
+詳細は [`docs/roadmap.md`](docs/roadmap.md) と [`docs/methodology.md`](docs/methodology.md) を参照してください。
+
 ## 目的
 
 `retro-opt` は、既存チャートを少し改善するためだけの専用ツールではありません。実カートリッジからの ROM / SRAM 取得、バス解析、エミュレータ状態の観測、RNG を含む状態遷移の計測、入力系列・戦闘方策・イベント間経路の探索を、一つの再現可能な実験系として接続することを目的とします。
