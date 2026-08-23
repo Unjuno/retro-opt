@@ -1,0 +1,10 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-graph-sanity-v0",
+  "graph_path": "games/sfc/dq6/model/early_event_graph.json",
+  "node_count": 8,
+  "terminal_count": 1,
+  "error_count": 0,
+  "pass": true,
+  "errors": []
+}
