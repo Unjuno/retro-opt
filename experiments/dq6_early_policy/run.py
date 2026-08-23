@@ -13,7 +13,7 @@ from retro_opt.games.dq6.early_segment import (
 from retro_opt.solver.value_iteration import solve_ssp
 
 TARGET_EXP = 847
-METAL_PROBABILITY = 0.05
+METAL_REWARD_PROBABILITY = 0.05
 METAL_EXP = 1350
 NORMAL_EXP_VALUES = (19, 19, 21, 23, 24)
 ENCOUNTER_COST_SECONDS = 10.0
@@ -27,7 +27,7 @@ def solve_policy(downstream_penalty_seconds: float) -> dict[int, str]:
         encounter_cost_seconds=ENCOUNTER_COST_SECONDS,
         downstream_penalty_seconds=downstream_penalty_seconds,
         xp_outcomes=metal_mixture_outcomes(
-            metal_probability=METAL_PROBABILITY,
+            metal_probability=METAL_REWARD_PROBABILITY,
             metal_xp=METAL_EXP,
             normal_xp_values=NORMAL_EXP_VALUES,
         ),
@@ -81,15 +81,16 @@ def run() -> dict[str, object]:
         )
 
     return {
-        "schema_version": "0.1",
+        "schema_version": "0.2",
         "experiment_id": "dq6-early-policy-v0",
         "status": "sensitivity-only",
         "empirical_claim": False,
         "target_exp": TARGET_EXP,
-        "metal_probability_assumption": METAL_PROBABILITY,
+        "metal_reward_probability_assumption": METAL_REWARD_PROBABILITY,
+        "metal_probability_semantics": "effective probability that the encounter yields Metal Slime EXP; not appearance rate",
         "metal_exp": METAL_EXP,
         "normal_exp_values": list(NORMAL_EXP_VALUES),
-        "normal_outcome_assumption": "equal weight conditional on non-metal",
+        "normal_outcome_assumption": "equal weight conditional on non-metal-reward",
         "encounter_cost_seconds": ENCOUNTER_COST_SECONDS,
         "cases": cases,
     }
