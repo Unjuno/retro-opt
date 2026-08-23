@@ -14,7 +14,7 @@ from retro_opt.solver.action_values import action_values
 from retro_opt.solver.value_iteration import solve_ssp
 
 TARGET_EXP = 847
-METAL_PROBABILITY = 0.05
+METAL_REWARD_PROBABILITY = 0.05
 ENCOUNTER_COST_SECONDS = 10.0
 DOWNSTREAM_PENALTY_SECONDS = 30.0
 NORMAL_EXP_VALUES = (19, 19, 21, 23, 24)
@@ -29,7 +29,7 @@ def run() -> dict[str, object]:
         encounter_cost_seconds=ENCOUNTER_COST_SECONDS,
         downstream_penalty_seconds=DOWNSTREAM_PENALTY_SECONDS,
         xp_outcomes=metal_mixture_outcomes(
-            metal_probability=METAL_PROBABILITY,
+            metal_probability=METAL_REWARD_PROBABILITY,
             metal_xp=METAL_EXP,
             normal_xp_values=NORMAL_EXP_VALUES,
         ),
@@ -60,12 +60,13 @@ def run() -> dict[str, object]:
         )
 
     return {
-        "schema_version": "0.1",
+        "schema_version": "0.2",
         "experiment_id": "dq6-early-horizon-v0",
         "status": "sensitivity-only",
         "empirical_claim": False,
         "target_exp": TARGET_EXP,
-        "metal_probability_assumption": METAL_PROBABILITY,
+        "metal_reward_probability_assumption": METAL_REWARD_PROBABILITY,
+        "metal_probability_semantics": "effective probability that the encounter yields Metal Slime EXP; not appearance rate",
         "encounter_cost_seconds": ENCOUNTER_COST_SECONDS,
         "downstream_penalty_seconds": DOWNSTREAM_PENALTY_SECONDS,
         "rows": rows,
