@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "solver-random-dag-crosscheck-v0",
+  "case_count": 200,
+  "state_count": 6,
+  "seed": 20260824,
+  "tolerance": 1e-09,
+  "mismatch_count": 0,
+  "max_absolute_error": 0.0,
+  "pass": true,
+  "mismatches": []
+}
