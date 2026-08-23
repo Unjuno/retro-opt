@@ -1,0 +1,91 @@
+# ROM / game images
+*.sfc
+*.smc
+*.fig
+*.nes
+*.gb
+*.gbc
+*.gba
+*.gen
+*.md
+*.rom
+
+# BIOS / firmware images
+bios/
+*.bios
+
+# Save data / emulator states
+*.srm
+*.sav
+*.state
+*.State
+*.bk2
+*.tasproj
+
+# Local captures and datasets
+roms/
+saves/
+states/
+captures/
+data/local/
+results/local/
+
+# Large raw traces
+*.trace
+*.vcd
+*.fst
+*.wlf
+
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Rust / C / C++ build outputs
+build/
+dist/
+target/
+*.o
+*.obj
+*.elf
+*.hex
+
+# FPGA tool outputs
+*.bit
+*.bin
+*.sof
+*.pof
+*.svf
+*.jed
+*.rpt
+*.jou
+*.log
+.Xil/
+.cache/
+.ip_user_files/
+.runs/
+.sim/
+.gen/
+incremental_db/
+db/
+output_files/
+
+# KiCad generated / local backup files
+*-backups/
+*.lck
+~*.lck
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
