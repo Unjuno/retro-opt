@@ -1,4 +1,4 @@
-schema_version: "0.1"
+schema_version: "0.2"
 segment_id: "dream-cave_to_horror-beast"
 platform: "sfc"
 game: "dragon-quest-vi-jp"
@@ -7,6 +7,19 @@ status: "human-baseline-only"
 # 既存チャートを正解として固定するためではなく、
 # machine policyとの比較・再発見benchmarkに使うための粗い構造化データ。
 # 数値・条件は必ずprovenanceを保持し、後で実測・再確認する。
+
+public_reference_data:
+  amor_north_cave_b2:
+    metal_slime_appearance_rate_approx: 0.20
+    interpretation: "公開RTAデータサイトでは『約20%と言われている』とされる参考値。厳密なencounter table確率としては未検証。"
+    important_caveat: "appearance rateはMetal SlimeのEXP獲得確率ではない。逃走・撃破失敗を別途モデル化する。"
+    provenance:
+      url: "https://dqrta.com/data/exp01/"
+  metal_slime:
+    exp: 1350
+    can_flee: true
+    provenance:
+      url: "https://dqrta.com/enemies/metal-slime/"
 
 variants:
   - id: "maru-2016-stone-cut"
@@ -68,6 +81,7 @@ variants:
 
 research_questions:
   - "夢見洞窟の自然Metal Slime遭遇は、どのobservable stateで狩る/逃げる境界が変わるか"
+  - "アモール北B2の約20%というappearance referenceから、実際のMetal EXP獲得確率をどう分解・推定するか"
   - "アモール北で通常敵を何EXPまで狩るのが全体期待値最小か"
   - "主人公Lv7、Lv8、Lv9到達時点を固定目標にせず、後続区間まで含めると閾値はどう変わるか"
   - "Metal Slimeの1350 EXPが、後続の何戦・何ターン・何回復を削除することで価値を回収するか"
