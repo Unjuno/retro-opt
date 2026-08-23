@@ -1,0 +1,44 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "resource-dependency-toy-v0",
+  "type": "solver-validation",
+  "empirical_claim": false,
+  "description": "item pickup, gold pickup, sell/buy decisions and boss retry riskを同一state spaceで扱えるかを確認するsynthetic benchmark",
+  "optimal_start_value_seconds": 63.60606060606061,
+  "optimal_decisions": [
+    {
+      "stage": "shield_chest",
+      "has_shield": false,
+      "gold": 0,
+      "has_potion": false,
+      "action": "take_shield"
+    },
+    {
+      "stage": "gold_chest",
+      "has_shield": true,
+      "gold": 0,
+      "has_potion": false,
+      "action": "take_gold"
+    },
+    {
+      "stage": "town",
+      "has_shield": true,
+      "gold": 50,
+      "has_potion": false,
+      "action": "keep_shield"
+    },
+    {
+      "stage": "shop",
+      "has_shield": true,
+      "gold": 50,
+      "has_potion": false,
+      "action": "buy_potion"
+    }
+  ],
+  "boss_expected_remaining_seconds": {
+    "none": 151.42857142857085,
+    "shield_only": 72.30769230769229,
+    "potion_only": 55.0,
+    "shield_and_potion": 40.60606060606061
+  }
+}
