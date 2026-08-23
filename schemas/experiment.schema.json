@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Unjuno/retro-opt/schemas/experiment.schema.json",
+  "title": "retro-opt experiment",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "schema_version",
+    "platform",
+    "game",
+    "category",
+    "lane",
+    "software_commit",
+    "metrics"
+  ],
+  "properties": {
+    "experiment_id": {"type": "string", "minLength": 1},
+    "schema_version": {"type": "string", "const": "0.1"},
+    "platform": {"type": "string", "minLength": 1},
+    "game": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "ruleset_version": {"type": ["string", "null"]},
+    "lane": {
+      "type": "string",
+      "enum": ["competition", "quarantine", "unrestricted", "synthetic"]
+    },
+    "software_commit": {"type": "string", "minLength": 7},
+    "rom_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "initial_state_id": {"type": ["string", "null"]},
+    "terminal_condition": {"type": ["string", "null"]},
+    "policy_id": {"type": ["string", "null"]},
+    "scenario_set_id": {"type": ["string", "null"]},
+    "random_seed": {"type": ["integer", "null"]},
+    "sample_count": {"type": "integer", "minimum": 0},
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "mean_seconds": {"type": ["number", "null"], "minimum": 0},
+        "median_seconds": {"type": ["number", "null"], "minimum": 0},
+        "variance_seconds2": {"type": ["number", "null"], "minimum": 0},
+        "completion_probability": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "mean_reset_seconds": {"type": ["number", "null"], "minimum": 0},
+        "target_seconds": {"type": ["number", "null"], "minimum": 0},
+        "target_probability": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "confidence_level": {"type": ["number", "null"], "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+        "confidence_interval_seconds": {
+          "type": ["array", "null"],
+          "prefixItems": [
+            {"type": "number", "minimum": 0},
+            {"type": "number", "minimum": 0}
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "additionalProperties": true
+    },
+    "anomalies": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "notes": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}
