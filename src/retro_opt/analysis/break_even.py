@@ -76,10 +76,15 @@ def metal_mixture_outcomes(
     metal_xp: int,
     normal_xp_values: Iterable[int],
 ) -> tuple[XpOutcome, ...]:
-    """感度分析用の簡易混合分布を作る。
+    """感度分析用の簡易EXP混合分布を作る。
 
-    normal_xp_valuesは、非Metal時に等確率と仮定する。これは実ゲームの
-    encounter tableを表すものではなく、実測値が入るまでの仮説モデル専用。
+    `metal_probability` は「Metalが画面に出る確率」ではなく、追加戦闘1回が
+    `metal_xp` を実際に獲得するoutcomeになる確率として扱う。Metalは逃走し得るため、
+    実ゲームでは一般に encounter appearance rate と kill / reward probability を
+    分離して推定する必要がある。
+
+    `normal_xp_values` は、非Metal reward outcome時に等確率と仮定する。これは
+    実ゲームのencounter tableを表すものではなく、実測値が入るまでの仮説モデル専用。
     """
 
     if not 0.0 <= metal_probability <= 1.0:
