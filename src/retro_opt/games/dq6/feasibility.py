@@ -17,6 +17,8 @@ class ActionRequirements:
     min_gold: int = 0
     max_gold: int | None = None
     owned_items: tuple[tuple[str, int], ...] = ()
+    personal_items: tuple[tuple[str, str, int], ...] = ()
+    equipped_items: tuple[tuple[str, str, str], ...] = ()
     min_counters: tuple[tuple[str, int], ...] = ()
     required_story_flags: frozenset[str] = frozenset()
     required_resource_flags: frozenset[str] = frozenset()
@@ -33,6 +35,10 @@ class ActionRequirements:
                 raise ValueError("max_gold must be >= min_gold")
         if any(count <= 0 for _, count in self.owned_items):
             raise ValueError("owned item counts must be positive")
+        if any(count <= 0 for _, _, count in self.personal_items):
+            raise ValueError("personal item counts must be positive")
+        if any(not member or not slot or not item for member, slot, item in self.equipped_items):
+            raise ValueError("equipped item requirements must be non-empty")
         if any(value < 0 for _, value in self.min_counters):
             raise ValueError("minimum counter values must be non-negative")
 
@@ -90,6 +96,24 @@ def missing_requirements(
     for item, count in requirements.owned_items:
         if owned_count(state, item) < count:
             missing.append(f"item:{item}>={count}")
+
+    for member_name, item, count in requirements.personal_items:
+        try:
+            member = state.member(member_name)
+        except KeyError:
+            missing.append(f"member:{member_name}")
+            continue
+        if dict(member.personal_items).get(item, 0) < count:
+            missing.append(f"personal:{member_name}:{item}>={count}")
+
+    for member_name, slot, item in requirements.equipped_items:
+        try:
+            member = state.member(member_name)
+        except KeyError:
+            missing.append(f"member:{member_name}")
+            continue
+        if member.equipped(slot) != item:
+            missing.append(f"equipped:{member_name}:{slot}={item}")
 
     for counter_name, minimum in requirements.min_counters:
         if state.counter(counter_name) < minimum:
