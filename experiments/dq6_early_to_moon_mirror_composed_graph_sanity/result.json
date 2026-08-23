@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-to-moon-mirror-composed-graph-sanity-v0",
+  "component_paths": [
+    "games/sfc/dq6/model/early_resource_event_graph.json",
+    "games/sfc/dq6/model/post_amor_shop_economy_graph.json",
+    "games/sfc/dq6/model/moon_mirror_resource_event_graph.json"
+  ],
+  "node_count": 19,
+  "terminal_count": 1,
+  "start_node": "amor_north_life_seed_choice",
+  "terminal_nodes": [
+    "moon_mirror_segment_complete"
+  ],
+  "error_count": 0,
+  "pass": true,
+  "errors": []
+}
