@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-policy-v0",
+  "status": "sensitivity-only",
+  "empirical_claim": false,
+  "target_exp": 847,
+  "metal_probability_assumption": 0.05,
+  "metal_exp": 1350,
+  "normal_exp_values": [19, 19, 21, 23, 24],
+  "normal_outcome_assumption": "equal weight conditional on non-metal",
+  "encounter_cost_seconds": 10.0,
+  "cases": [
+    {
+      "downstream_penalty_seconds": 15.0,
+      "first_exp_where_fight_is_optimal": 828,
+      "policy_ranges": [
+        {"exp_min": 800, "exp_max": 827, "action": "skip"},
+        {"exp_min": 828, "exp_max": 830, "action": "fight"}
+      ]
+    },
+    {
+      "downstream_penalty_seconds": 30.0,
+      "first_exp_where_fight_is_optimal": 824,
+      "policy_ranges": [
+        {"exp_min": 800, "exp_max": 823, "action": "skip"},
+        {"exp_min": 824, "exp_max": 830, "action": "fight"}
+      ]
+    },
+    {
+      "downstream_penalty_seconds": 60.0,
+      "first_exp_where_fight_is_optimal": 823,
+      "policy_ranges": [
+        {"exp_min": 800, "exp_max": 822, "action": "skip"},
+        {"exp_min": 823, "exp_max": 830, "action": "fight"}
+      ]
+    }
+  ]
+}
