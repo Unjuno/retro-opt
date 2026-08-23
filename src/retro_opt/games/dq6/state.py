@@ -39,8 +39,8 @@ class DQ6State:
     からこの構造へ変換する。
 
     DQ6のroute optimizationでは、EXPだけでなく item / equipment / gold / stats /
-    flags / resource placement が数イベント先の可否・戦闘時間・勝率・金策を変えるため、
-    それらを state の一級要素として保持する。
+    flags / resource placement / cumulative counters が数イベント先の可否・戦闘時間・
+    勝率・金策を変えるため、それらを state の一級要素として保持する。
     """
 
     segment: str
@@ -50,6 +50,10 @@ class DQ6State:
     # 袋。各キャラの手持ちは PartyMemberState.personal_items で分離する。
     bag: tuple[tuple[str, int], ...] = ()
     gold: int = 0
+
+    # 小さなメダル累積、カジノコイン、永続的な戦闘/熟練度count等、
+    # item所持とは別に将来条件を変える数値を保持する。
+    counters: tuple[tuple[str, int], ...] = ()
 
     # 回収済み/売却済み/消費済み等を含む不可逆な進行はflagで保持する。
     story_flags: frozenset[str] = frozenset()
@@ -66,6 +70,9 @@ class DQ6State:
 
     def bag_count(self, item: str) -> int:
         return dict(self.bag).get(item, 0)
+
+    def counter(self, name: str, default: int = 0) -> int:
+        return dict(self.counters).get(name, default)
 
     def owns(self, item: str) -> bool:
         if self.bag_count(item) > 0:
