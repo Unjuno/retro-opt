@@ -49,6 +49,18 @@ def test_requirements_are_feasibility_not_reward() -> None:
     assert missing_requirements(state, too_expensive) == ("gold>=721",)
 
 
+def test_upper_bound_gold_can_gate_recovery_branch() -> None:
+    state = make_state()
+    low_gold_branch = ActionRequirements(max_gold=140)
+    assert not is_feasible(state, low_gold_branch)
+    assert missing_requirements(state, low_gold_branch) == ("gold<=140",)
+
+
+def test_invalid_gold_interval_is_rejected() -> None:
+    with pytest.raises(ValueError):
+        ActionRequirements(min_gold=200, max_gold=100)
+
+
 def test_owned_count_includes_bag_personal_and_equipped() -> None:
     state = make_state()
     assert owned_count(state, "herb") == 3
