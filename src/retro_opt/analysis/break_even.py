@@ -97,10 +97,62 @@ def metal_mixture_outcomes(
 
     outcomes: list[XpOutcome] = []
     if metal_probability > 0.0:
-        outcomes.append(XpOutcome(metal_probability, metal_xp, "metal"))
+        outcomes.append(XpOutcome(metal_probability, metal_xp, "metal-reward"))
 
     normal_probability = 1.0 - metal_probability
     each = normal_probability / len(normal)
+    outcomes.extend(
+        XpOutcome(each, xp, f"normal:{xp}") for xp in normal if each > 0.0
+    )
+    return validate_outcomes(outcomes)
+
+
+def metal_encounter_outcomes(
+    *,
+    metal_appearance_probability: float,
+    metal_kill_probability_given_appearance: float,
+    metal_xp: int,
+    normal_xp_values: Iterable[int],
+    failed_metal_xp: int = 0,
+) -> tuple[XpOutcome, ...]:
+    """Metalの出現と撃破成功を分離した感度分析用EXP分布。
+
+    - Metal出現: `metal_appearance_probability`
+    - 出現したMetalを倒してEXPを得る: `metal_kill_probability_given_appearance`
+    - Metalが出なかった場合: `normal_xp_values` を等確率と仮定
+    - Metal出現後に失敗した場合: `failed_metal_xp`
+
+    お供を倒して得るEXP等を扱う場合は `failed_metal_xp` を実測値へ置換する。
+    """
+
+    if not 0.0 <= metal_appearance_probability <= 1.0:
+        raise ValueError("metal_appearance_probability must be in [0, 1]")
+    if not 0.0 <= metal_kill_probability_given_appearance <= 1.0:
+        raise ValueError("metal_kill_probability_given_appearance must be in [0, 1]")
+    normal = tuple(normal_xp_values)
+    if not normal:
+        raise ValueError("normal_xp_values must not be empty")
+    if metal_xp < 0 or failed_metal_xp < 0 or any(x < 0 for x in normal):
+        raise ValueError("xp values must be non-negative")
+
+    success_probability = (
+        metal_appearance_probability * metal_kill_probability_given_appearance
+    )
+    failure_probability = (
+        metal_appearance_probability
+        * (1.0 - metal_kill_probability_given_appearance)
+    )
+    no_metal_probability = 1.0 - metal_appearance_probability
+
+    outcomes: list[XpOutcome] = []
+    if success_probability > 0.0:
+        outcomes.append(XpOutcome(success_probability, metal_xp, "metal-kill"))
+    if failure_probability > 0.0:
+        outcomes.append(
+            XpOutcome(failure_probability, failed_metal_xp, "metal-failed")
+        )
+
+    each = no_metal_probability / len(normal)
     outcomes.extend(
         XpOutcome(each, xp, f"normal:{xp}") for xp in normal if each > 0.0
     )
