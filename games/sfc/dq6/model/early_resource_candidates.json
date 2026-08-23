@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.1",
+  "model_id": "dq6-early-resource-candidates-v0",
+  "status": "public-chart-structural-draft",
+  "scope": "Dream Cave through post-Horror-Beast Amor shopping",
+  "principle": "human chartの採用/不採用を正解として固定せず、solverが選択できるresource action候補として記録する",
+  "sources": [
+    {
+      "id": "mamemo_chart_2026",
+      "url": "https://mamemommm.com/dq6_chart_mmm",
+      "role": "pickup/shop/action reference"
+    },
+    {
+      "id": "togo_2026_run_memo",
+      "url": "https://togoblo25.fc2.net/blog-entry-131.html",
+      "role": "EXP/resource branch reference"
+    }
+  ],
+  "decision_points": [
+    {
+      "id": "amor_north_life_seed",
+      "location": "Amor North Cave B1",
+      "resource": "life_seed",
+      "candidate_actions": ["take_and_use", "skip"],
+      "possible_effects": ["pickup_time", "permanent_hp_change", "boss_survival_probability", "future_healing_cost"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "amor_north_small_medal",
+      "location": "Amor North Cave B3",
+      "resource": "small_medal",
+      "candidate_actions": ["take", "skip"],
+      "possible_effects": ["pickup_time", "future_medal_unlock", "future_item_route"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "amor_north_blade_boomerang",
+      "location": "Amor North Cave B3",
+      "resource": "blade_boomerang",
+      "candidate_actions": ["take", "skip"],
+      "possible_effects": ["pickup_time", "encounter_kill_time", "horror_beast_damage_output", "future_resale_or_equipment_value"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "amor_north_410g",
+      "location": "Amor North Cave B2",
+      "resource": "gold",
+      "amount": 410,
+      "candidate_actions": ["take", "skip"],
+      "possible_effects": ["pickup_time", "post_boss_purchase_feasibility", "future_gold_flexibility"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "amor_north_farming_policy",
+      "location": "Amor North Cave B2",
+      "resource": "exp_hp_mp_time",
+      "candidate_actions": ["fight", "flee", "leave_area"],
+      "possible_effects": ["exp", "level", "hp", "mp", "time", "metal_reward", "boss_entry_state"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "post_horror_magic_water",
+      "location": "Amor North Cave B4",
+      "resource": "magic_water",
+      "candidate_actions": ["take", "skip"],
+      "possible_effects": ["pickup_time", "mp_recovery_option", "future_resale_or_inventory_value"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "post_horror_iron_claw",
+      "location": "Amor North Cave B4",
+      "resource": "iron_claw",
+      "candidate_actions": ["take", "skip"],
+      "possible_effects": ["pickup_time", "equipment_value", "resale_value", "future_gold"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "post_horror_mysterious_nut",
+      "location": "Amor North Cave B3",
+      "resource": "mysterious_nut",
+      "candidate_actions": ["take_and_use", "take_and_hold", "skip"],
+      "possible_effects": ["pickup_time", "permanent_mp_change", "spell_budget", "future_boss_policy"],
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "id": "amor_post_horror_shop",
+      "location": "Amor armor shop",
+      "resource": "gold_equipment",
+      "candidate_actions": ["sell_selected_assets", "buy_iron_shield", "skip_or_partial_shop"],
+      "known_reference": {
+        "iron_shield_purchase_price": 720,
+        "baseline_purchase_count": 2
+      },
+      "possible_effects": ["shop_time", "gold", "equipment", "future_battle_survival", "future_resale_options"],
+      "source_id": "mamemo_chart_2026"
+    }
+  ],
+  "required_unknowns_before_empirical_optimization": [
+    "pickup detour time for each candidate under each incoming route",
+    "menu time for use/equip/transfer decisions",
+    "sale values and which shop visit can realize them",
+    "boss time/clear probability by equipment, HP, MP and EXP state",
+    "future value of small medals beyond this segment",
+    "future MP value of mysterious nut and magic water",
+    "formation-specific fight/flee distributions"
+  ]
+}
