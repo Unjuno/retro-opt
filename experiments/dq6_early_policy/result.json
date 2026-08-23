@@ -1,13 +1,14 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "experiment_id": "dq6-early-policy-v0",
   "status": "sensitivity-only",
   "empirical_claim": false,
   "target_exp": 847,
-  "metal_probability_assumption": 0.05,
+  "metal_reward_probability_assumption": 0.05,
+  "metal_probability_semantics": "effective probability that the encounter yields Metal Slime EXP; not appearance rate",
   "metal_exp": 1350,
   "normal_exp_values": [19, 19, 21, 23, 24],
-  "normal_outcome_assumption": "equal weight conditional on non-metal",
+  "normal_outcome_assumption": "equal weight conditional on non-metal-reward",
   "encounter_cost_seconds": 10.0,
   "cases": [
     {
