@@ -1,0 +1,321 @@
+{
+  "schema_version": "0.1",
+  "graph_id": "dq6-early-resource-route-v0",
+  "platform": "sfc",
+  "game": "dragon-quest-vi-jp",
+  "status": "structural-draft",
+  "start_node": "amor_north_life_seed_choice",
+  "terminal_nodes": [
+    "post_amor_shop_exit"
+  ],
+  "nodes": [
+    {
+      "id": "amor_north_life_seed_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_and_use_life_seed",
+          "to": "amor_north_small_medal_choice",
+          "duration_model": "unknown:life-seed-detour-and-menu",
+          "requirements": {
+            "forbidden_resource_flags": [
+              "amor_north_life_seed_resolved"
+            ]
+          },
+          "random_effects": [
+            "hassan_max_hp_seed_gain"
+          ],
+          "deterministic_effects": [
+            "mark:amor_north_life_seed_collected",
+            "mark:amor_north_life_seed_used",
+            "mark:amor_north_life_seed_resolved"
+          ]
+        },
+        {
+          "id": "skip_life_seed",
+          "to": "amor_north_small_medal_choice",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:amor_north_life_seed_skipped",
+            "mark:amor_north_life_seed_resolved"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_small_medal_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_small_medal",
+          "to": "amor_north_blade_boomerang_choice",
+          "duration_model": "unknown:small-medal-detour",
+          "deterministic_effects": [
+            "small_medal:+1",
+            "mark:amor_north_small_medal_collected"
+          ]
+        },
+        {
+          "id": "skip_small_medal",
+          "to": "amor_north_blade_boomerang_choice",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:amor_north_small_medal_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_blade_boomerang_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_blade_boomerang",
+          "to": "amor_north_410g_choice",
+          "duration_model": "unknown:blade-boomerang-detour",
+          "deterministic_effects": [
+            "blade_boomerang:+1",
+            "mark:blade_boomerang_collected"
+          ]
+        },
+        {
+          "id": "skip_blade_boomerang",
+          "to": "amor_north_410g_choice",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:blade_boomerang_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_410g_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_410g",
+          "to": "amor_north_farming",
+          "duration_model": "unknown:410g-detour",
+          "deterministic_effects": [
+            "gold:+410",
+            "mark:amor_north_410g_collected"
+          ]
+        },
+        {
+          "id": "skip_410g",
+          "to": "amor_north_farming",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:amor_north_410g_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_farming",
+      "kind": "repeated-decision",
+      "actions": [
+        {
+          "id": "fight_current_encounter",
+          "to": "amor_north_farming",
+          "duration_model": "unknown:formation-conditioned-fight",
+          "random_effects": [
+            "time",
+            "exp",
+            "gold",
+            "hp",
+            "mp",
+            "drops",
+            "metal_reward"
+          ]
+        },
+        {
+          "id": "flee_current_encounter",
+          "to": "amor_north_farming",
+          "duration_model": "unknown:formation-conditioned-flee",
+          "random_effects": [
+            "time",
+            "hp",
+            "mp",
+            "flee_success"
+          ]
+        },
+        {
+          "id": "leave_farming_area",
+          "to": "horror_beast_prebattle",
+          "duration_model": "unknown:b2-to-horror-beast"
+        }
+      ]
+    },
+    {
+      "id": "horror_beast_prebattle",
+      "kind": "policy-decision",
+      "actions": [
+        {
+          "id": "fight_horror_beast",
+          "to": "horror_beast_defeated",
+          "duration_model": "unknown:horror-beast-policy-by-resource-state",
+          "random_effects": [
+            "battle_time",
+            "clear_or_death",
+            "hp",
+            "mp",
+            "consumables"
+          ],
+          "policy_inputs": [
+            "party",
+            "exp",
+            "level",
+            "stats",
+            "equipment",
+            "personal_items",
+            "bag",
+            "gold"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "horror_beast_defeated",
+      "kind": "state-change",
+      "actions": [
+        {
+          "id": "continue_post_boss_route",
+          "to": "post_horror_magic_water_choice",
+          "duration_model": "unknown:post-boss-dialogue"
+        }
+      ]
+    },
+    {
+      "id": "post_horror_magic_water_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_magic_water",
+          "to": "post_horror_iron_claw_choice",
+          "duration_model": "unknown:magic-water-detour",
+          "deterministic_effects": [
+            "magic_water:+1",
+            "mark:post_horror_magic_water_collected"
+          ]
+        },
+        {
+          "id": "skip_magic_water",
+          "to": "post_horror_iron_claw_choice",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:post_horror_magic_water_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "post_horror_iron_claw_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_iron_claw",
+          "to": "post_horror_mysterious_nut_choice",
+          "duration_model": "unknown:iron-claw-detour",
+          "deterministic_effects": [
+            "iron_claw:+1",
+            "mark:post_horror_iron_claw_collected"
+          ]
+        },
+        {
+          "id": "skip_iron_claw",
+          "to": "post_horror_mysterious_nut_choice",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:post_horror_iron_claw_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "post_horror_mysterious_nut_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_and_use_mysterious_nut",
+          "to": "amor_post_horror_shop",
+          "duration_model": "unknown:nut-detour-and-menu",
+          "random_effects": [
+            "protagonist_max_mp_seed_gain"
+          ],
+          "deterministic_effects": [
+            "mark:mysterious_nut_collected",
+            "mark:mysterious_nut_used"
+          ]
+        },
+        {
+          "id": "take_and_hold_mysterious_nut",
+          "to": "amor_post_horror_shop",
+          "duration_model": "unknown:nut-detour",
+          "deterministic_effects": [
+            "mysterious_nut:+1",
+            "mark:mysterious_nut_collected"
+          ]
+        },
+        {
+          "id": "skip_mysterious_nut",
+          "to": "amor_post_horror_shop",
+          "duration_model": "unknown:skip-delta",
+          "deterministic_effects": [
+            "mark:mysterious_nut_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amor_post_horror_shop",
+      "kind": "repeatable-resource-decision",
+      "actions": [
+        {
+          "id": "sell_selected_asset",
+          "to": "amor_post_horror_shop",
+          "duration_model": "unknown:sell-menu-time",
+          "requirements": {
+            "owned_sellable_asset": true
+          },
+          "deterministic_effects": [
+            "remove:selected_asset",
+            "gold:+unknown:sale_value"
+          ],
+          "note": "実際のitemとsale valueはstate/action生成時に具体化する"
+        },
+        {
+          "id": "buy_iron_shield",
+          "to": "amor_post_horror_shop",
+          "duration_model": "unknown:buy-menu-time",
+          "requirements": {
+            "min_gold": 720
+          },
+          "deterministic_effects": [
+            "gold:-720",
+            "iron_shield:+1"
+          ]
+        },
+        {
+          "id": "leave_shop",
+          "to": "post_amor_shop_exit",
+          "duration_model": "unknown:shop-exit"
+        }
+      ]
+    },
+    {
+      "id": "post_amor_shop_exit",
+      "kind": "terminal",
+      "actions": []
+    }
+  ],
+  "unmeasured_parameters": [
+    "pickup detour time by incoming route",
+    "menu time by inventory layout",
+    "seed stat roll distribution",
+    "formation-conditioned fight/flee time and state transition",
+    "Horror Beast clear/time distribution by resource state",
+    "asset-specific sale value/action time",
+    "future value of medals/items/equipment/gold"
+  ]
+}
