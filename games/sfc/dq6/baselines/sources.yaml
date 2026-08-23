@@ -1,0 +1,70 @@
+schema_version: "0.1"
+platform: sfc
+game: dragon-quest-vi-jp
+category: normal-ending-rta
+
+current_frontier_reference:
+  player: "すなに"
+  time: "6:28:36"
+  achieved: "2025-01-03"
+  notes:
+    - "SFC実機"
+    - "賢者の石あり"
+    - "メタルキングヘルムあり"
+    - "メタキンカット"
+    - "ドラゴンの悟りあり"
+  source: "http://niconamarta.sakura.ne.jp/wiki.php?game=%E3%83%89%E3%83%A9%E3%82%B4%E3%83%B3%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%EF%BC%96"
+
+sources:
+  - id: maru_stone_cut_2016
+    title: "SFC版DQ6RTA 賢者の石カットチャート"
+    author: "Maru"
+    url: "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+    kind: chart
+    notes:
+      - "旧来の代表的な詳細チャート"
+      - "ムーア前メタルキング1匹狩りを含む"
+      - "ボス戦・目標ラップ・アイテム・熟練度政策が詳細"
+
+  - id: togo_2026_run_memo
+    title: "DQ6RTA 通し用メモ 2026年1月ver"
+    author: "トウゴ"
+    url: "https://togoblo25.fc2.net/blog-entry-131.html"
+    kind: run-memo
+    notes:
+      - "2026年時点の一発勝負系メモ"
+      - "夢見の洞窟・アモール北の洞窟・ホラービーストを含む"
+      - "状態依存の実走判断を抽出する候補"
+
+  - id: mamemo_chart_2026
+    title: "DQ6をやるときに見るやつ"
+    author: "まめも！"
+    url: "https://mamemommm.com/dq6_chart_mmm"
+    kind: chart
+    notes:
+      - "2026年更新の詳細チャート"
+      - "夢見・アモール北・ホラービースト周辺のEXP/戦闘政策が具体的"
+      - "安定寄りのチャート比較対象として有用"
+
+  - id: mamemo_notes
+    title: "ドラ6 個人的なメモ置き場"
+    author: "まめも！"
+    url: "https://mamemommm.com/dq6rtamemo"
+    kind: memo
+    notes:
+      - "細かな状態依存判断やEXP閾値のメモ"
+
+  - id: keiru_chart_memo
+    title: "ドラクエ6 RTA 初心者としてチャート見ても分からなかった事をメモ"
+    author: "ドラクエRTAブログ"
+    url: "https://www.keiru.net/dq6-rta-chart-memo/"
+    kind: memo
+    notes:
+      - "歩き方・回復・細かな実走判断の補助資料"
+
+  - id: dqrta_lab
+    title: "ドラクエ6RTA実験室"
+    url: "https://dqrta.com/"
+    kind: data-site
+    notes:
+      - "RTA向け基礎データ・チャート・経験値等の参照候補"
