@@ -5,6 +5,7 @@ import pytest
 from retro_opt.analysis.break_even import (
     XpOutcome,
     break_even_downstream_saving_seconds,
+    metal_encounter_outcomes,
     metal_mixture_outcomes,
     threshold_cross_probability,
 )
@@ -48,5 +49,22 @@ def test_dq6_reference_mixture_near_level7_threshold() -> None:
         target_xp=847,
         outcomes=outcomes,
     )
-    # 23,24 の2/5 + Metal 5% = 0.05 + 0.95*0.4 = 0.43
+    # 23,24 の2/5 + Metal reward 5% = 0.05 + 0.95*0.4 = 0.43
     assert probability == pytest.approx(0.43)
+
+
+def test_metal_appearance_and_kill_are_separate_probabilities() -> None:
+    outcomes = metal_encounter_outcomes(
+        metal_appearance_probability=0.20,
+        metal_kill_probability_given_appearance=0.50,
+        metal_xp=1350,
+        normal_xp_values=(19, 19, 21, 23, 24),
+        failed_metal_xp=0,
+    )
+    by_label = {outcome.label: outcome for outcome in outcomes}
+
+    assert by_label["metal-kill"].probability == pytest.approx(0.10)
+    assert by_label["metal-failed"].probability == pytest.approx(0.10)
+    assert sum(
+        outcome.probability for outcome in outcomes if outcome.label.startswith("normal:")
+    ) == pytest.approx(0.80)
