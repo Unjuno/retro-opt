@@ -15,6 +15,7 @@ class ActionRequirements:
     """
 
     min_gold: int = 0
+    max_gold: int | None = None
     owned_items: tuple[tuple[str, int], ...] = ()
     required_story_flags: frozenset[str] = frozenset()
     required_resource_flags: frozenset[str] = frozenset()
@@ -24,6 +25,11 @@ class ActionRequirements:
     def __post_init__(self) -> None:
         if self.min_gold < 0:
             raise ValueError("min_gold must be non-negative")
+        if self.max_gold is not None:
+            if self.max_gold < 0:
+                raise ValueError("max_gold must be non-negative")
+            if self.max_gold < self.min_gold:
+                raise ValueError("max_gold must be >= min_gold")
         if any(count <= 0 for _, count in self.owned_items):
             raise ValueError("owned item counts must be positive")
 
@@ -74,6 +80,8 @@ def missing_requirements(
 
     if state.gold < requirements.min_gold:
         missing.append(f"gold>={requirements.min_gold}")
+    if requirements.max_gold is not None and state.gold > requirements.max_gold:
+        missing.append(f"gold<={requirements.max_gold}")
 
     for item, count in requirements.owned_items:
         if owned_count(state, item) < count:
