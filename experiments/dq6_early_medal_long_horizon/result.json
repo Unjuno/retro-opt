@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-medal-long-horizon-v0",
+  "status": "structural-sensitivity-only",
+  "empirical_claim": false,
+  "route_specific_count_before_pickup": 6,
+  "pickup_count": 1,
+  "source": "https://mamemommm.com/dq6_chart_mmm",
+  "rows": [
+    {"reward_threshold": 15, "remaining_if_skip": 9, "remaining_if_take": 8, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 25, "remaining_if_skip": 19, "remaining_if_take": 18, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 30, "remaining_if_skip": 24, "remaining_if_take": 23, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 40, "remaining_if_skip": 34, "remaining_if_take": 33, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 50, "remaining_if_skip": 44, "remaining_if_take": 43, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 60, "remaining_if_skip": 54, "remaining_if_take": 53, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 70, "remaining_if_skip": 64, "remaining_if_take": 63, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 80, "remaining_if_skip": 74, "remaining_if_take": 73, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 90, "remaining_if_skip": 84, "remaining_if_take": 83, "future_pickups_avoided_if_take": 1},
+    {"reward_threshold": 100, "remaining_if_skip": 94, "remaining_if_take": 93, "future_pickups_avoided_if_take": 1}
+  ],
+  "interpretation": "This does not assign a time value to the medal. It records that the early pickup reduces later collection debt by one medal for every unreached cumulative reward threshold. The time value depends on which later medal pickup can be removed and on route timing."
+}
