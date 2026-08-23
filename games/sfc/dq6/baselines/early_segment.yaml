@@ -1,0 +1,74 @@
+schema_version: "0.1"
+segment_id: "dream-cave_to_horror-beast"
+platform: "sfc"
+game: "dragon-quest-vi-jp"
+status: "human-baseline-only"
+
+# 既存チャートを正解として固定するためではなく、
+# machine policyとの比較・再発見benchmarkに使うための粗い構造化データ。
+# 数値・条件は必ずprovenanceを保持し、後で実測・再確認する。
+
+variants:
+  - id: "maru-2016-stone-cut"
+    source_id: "maru_stone_cut_2016"
+    character: "legacy detailed / stability-oriented"
+    dream_cave:
+      encounter_policy: "基本は突破優先。HP管理を重視"
+      boss: "ブラディーポは混乱・逃走を利用するpolicy"
+      exit: "装備整理後にdeathwarp"
+    north_cave:
+      before_blade_boomerang: "戦闘効率が低く、主人公は補助寄り"
+      after_blade_boomerang: "B2で通常敵を狩りつつMetal Slimeを期待"
+      exp_target: "ハッサンLv7を目安"
+      metal_policy: "遭遇時は狩りに切り替える"
+    horror_beast:
+      setup: "主人公ルカニ、ハッサン攻撃、ミレーユスカラ"
+      transition: "debuff/buff準備後にAIへ移行"
+    provenance:
+      url: "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+
+  - id: "mamemo-2026-stable"
+    source_id: "mamemo_chart_2026"
+    character: "one-shot / stability-oriented"
+    dream_cave:
+      encounter_policy: "道中は全逃げ"
+      boss: "ブラディーポは混乱・逃走を利用するpolicy"
+      exit: "deathwarp"
+    north_cave:
+      before_blade_boomerang: "逃げ寄り"
+      after_blade_boomerang: "B2でMetal Slimeを狙いつつ全狩り"
+      exp_target: "主人公Lv7"
+      resource_constraints:
+        protagonist_mp_min: 6
+        mireille_mp_min: 14
+      metal_slime_exp: 1350
+    horror_beast:
+      setup: "主人公ルカニ、ハッサン攻撃、ミレーユが各員へスカラ"
+      transition: "ルカニが十分入った後にAIへ移行"
+      downstream_note: "主人公Lv8/ルーラ習得条件によって追加EXPの価値が変わる"
+    provenance:
+      url: "https://mamemommm.com/dq6_chart_mmm"
+
+  - id: "togo-2026-run-memo"
+    source_id: "togo_2026_run_memo"
+    character: "2026 one-shot run memo"
+    north_cave:
+      exp_values:
+        hae_madoushi: 19
+        peepo: 19
+        doro_ningyou: 21
+        slime_knight: 23
+        baby_goyle: 24
+        metal_slime: 1350
+      protagonist_level7_exp: 847
+      alternative_plan: "後続のLv9到達を見越してEXPを930程度まで前倒しする案あり"
+      note: "後続のDark Hobbitまたは関所前encounterとの組合せでLv9を調整"
+    provenance:
+      url: "https://togoblo25.fc2.net/blog-entry-131.html"
+
+research_questions:
+  - "夢見洞窟の自然Metal Slime遭遇は、どのobservable stateで狩る/逃げる境界が変わるか"
+  - "アモール北で通常敵を何EXPまで狩るのが全体期待値最小か"
+  - "主人公Lv7、Lv8、Lv9到達時点を固定目標にせず、後続区間まで含めると閾値はどう変わるか"
+  - "Metal Slimeの1350 EXPが、後続の何戦・何ターン・何回復を削除することで価値を回収するか"
+  - "局所最短の移動/全逃げと、EXPを得るための戦闘を含む経路のPareto frontierはどうなるか"
