@@ -3,7 +3,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping, Sequence
 
-from retro_opt.games.dq6.feasibility import ActionRequirements, ResourceEffect
+from retro_opt.games.dq6.feasibility import (
+    ActionRequirements,
+    EquipmentChange,
+    ResourceEffect,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,11 +109,14 @@ def decode_deterministic_effects(tokens: Sequence[str] | None) -> DecodedEffects
     - `gold:+410`, `gold:-720`
     - `bag:iron_shield:+1`
     - `counter:small_medals:+1`
+    - `personal:hero:iron_claw:+1`
+    - `stat:hassan:max_hp:+5`
+    - `equip:hero:shield:iron_shield`
+    - `unequip:hero:shield`
     - `mark:flag_name`
     - `unmark:flag_name`
 
-    旧draftの `iron_shield:+1` のような型なしtokenは、itemかcounterか判定できないため
-    unresolvedとして返す。`unknown:` を含むtokenも同様に保持し、勝手に数値化しない。
+    型なしtokenや `unknown:` を含むtokenはunresolvedとして返し、勝手に解釈しない。
     """
 
     if tokens is None:
@@ -118,6 +125,9 @@ def decode_deterministic_effects(tokens: Sequence[str] | None) -> DecodedEffects
     gold_delta = 0
     bag_deltas: list[tuple[str, int]] = []
     counter_deltas: list[tuple[str, int]] = []
+    personal_item_deltas: list[tuple[str, str, int]] = []
+    stat_deltas: list[tuple[str, str, int]] = []
+    equipment_changes: list[EquipmentChange] = []
     add_flags: set[str] = set()
     remove_flags: set[str] = set()
     unresolved: list[UnresolvedGraphToken] = []
@@ -164,6 +174,33 @@ def decode_deterministic_effects(tokens: Sequence[str] | None) -> DecodedEffects
                 counter_deltas.append((name, delta))
             continue
 
+        if len(parts) == 4 and parts[0] in {"personal", "stat"}:
+            _, member, name, delta_text = parts
+            delta = _parse_signed_integer(delta_text)
+            if not member or not name or delta is None:
+                unresolved.append(UnresolvedGraphToken(token, "invalid member resource delta"))
+            elif parts[0] == "personal":
+                personal_item_deltas.append((member, name, delta))
+            else:
+                stat_deltas.append((member, name, delta))
+            continue
+
+        if len(parts) == 4 and parts[0] == "equip":
+            _, member, slot, item = parts
+            if not member or not slot or not item:
+                unresolved.append(UnresolvedGraphToken(token, "invalid equipment change"))
+            else:
+                equipment_changes.append(EquipmentChange(member, slot, item))
+            continue
+
+        if len(parts) == 3 and parts[0] == "unequip":
+            _, member, slot = parts
+            if not member or not slot:
+                unresolved.append(UnresolvedGraphToken(token, "invalid unequip change"))
+            else:
+                equipment_changes.append(EquipmentChange(member, slot, None))
+            continue
+
         unresolved.append(
             UnresolvedGraphToken(
                 token,
@@ -175,7 +212,10 @@ def decode_deterministic_effects(tokens: Sequence[str] | None) -> DecodedEffects
         effect=ResourceEffect(
             gold_delta=gold_delta,
             bag_deltas=tuple(bag_deltas),
+            personal_item_deltas=tuple(personal_item_deltas),
+            stat_deltas=tuple(stat_deltas),
             counter_deltas=tuple(counter_deltas),
+            equipment_changes=tuple(equipment_changes),
             add_resource_flags=frozenset(add_flags),
             remove_resource_flags=frozenset(remove_flags),
         ),
