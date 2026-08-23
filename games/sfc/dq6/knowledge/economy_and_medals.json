@@ -1,0 +1,108 @@
+{
+  "schema_version": "0.1",
+  "knowledge_id": "dq6-sfc-economy-medals-v0",
+  "platform": "sfc",
+  "game": "dragon-quest-vi-jp",
+  "status": "public-source-structured-draft",
+  "sources": [
+    {
+      "id": "mamemo_chart_2026",
+      "url": "https://mamemommm.com/dq6_chart_mmm",
+      "role": "current stability-oriented RTA chart / economy decisions"
+    },
+    {
+      "id": "maru_stone_cut_2016",
+      "url": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt",
+      "role": "legacy detailed RTA chart / explicit buy-sell values"
+    },
+    {
+      "id": "pidlio_sfc_medals",
+      "url": "https://dq6.pidlio.com/dq6sfc/medal.html",
+      "role": "SFC small-medal reward thresholds"
+    }
+  ],
+  "amor_post_horror_shop": {
+    "iron_shield": {
+      "buy_price_gold": 720,
+      "reference_purchase_count": 2,
+      "sources": ["mamemo_chart_2026", "maru_stone_cut_2016"]
+    },
+    "explicit_sale_values": [
+      {
+        "item": "iron_claw",
+        "sale_value_gold": 525,
+        "source_id": "maru_stone_cut_2016"
+      },
+      {
+        "item": "scale_shield",
+        "sale_value_gold": 135,
+        "source_id": "maru_stone_cut_2016"
+      }
+    ],
+    "reference_sale_bundle": {
+      "items": ["bamboo_spear_optional", "iron_claw", "scale_shield"],
+      "total_sale_value_gold": 697,
+      "source_id": "mamemo_chart_2026",
+      "note": "bundle total is recorded directly; optional bamboo spear individual value is not inferred here"
+    },
+    "post_purchase_recovery_branch": {
+      "condition": "gold_after_shop <= 140",
+      "candidate_recovery": "collect_200g_in_moon_mirror_tower",
+      "source_id": "mamemo_chart_2026"
+    }
+  },
+  "amor_north_resources": [
+    {
+      "resource": "gold",
+      "amount": 410,
+      "location": "Amor North Cave B2",
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "resource": "small_medal",
+      "amount": 1,
+      "location": "Amor North Cave B3",
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "resource": "blade_boomerang",
+      "amount": 1,
+      "location": "Amor North Cave B3",
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "resource": "life_seed",
+      "amount": 1,
+      "location": "Amor North Cave B1",
+      "source_id": "mamemo_chart_2026"
+    }
+  ],
+  "small_medal_rewards": [
+    {"cumulative_count": 15, "reward": "staff_of_divine_punishment"},
+    {"cumulative_count": 25, "reward": "strength_ruby"},
+    {"cumulative_count": 30, "reward": "platinum_sword"},
+    {"cumulative_count": 40, "reward": "miracle_sword"},
+    {"cumulative_count": 50, "reward": "sands_of_time"},
+    {"cumulative_count": 60, "reward": "mystical_armor"},
+    {"cumulative_count": 70, "reward": "metal_king_helm"},
+    {"cumulative_count": 80, "reward": "mysterious_bolero"},
+    {"cumulative_count": 90, "reward": "dragon_vocation_scroll"},
+    {"cumulative_count": 100, "reward": "sexy_underwear"}
+  ],
+  "route_level_notes": [
+    {
+      "fact": "the referenced 2026 stability chart targets Metal King Helm at 70 medals",
+      "source_id": "mamemo_chart_2026"
+    },
+    {
+      "fact": "the legacy stone-cut chart also describes a 70-medal route with Metal King Helm",
+      "source_id": "maru_stone_cut_2016"
+    }
+  ],
+  "modeling_notes": [
+    "small medals are cumulative resources; an early medal may change a later reward threshold even if it has no local combat value",
+    "sellable equipment must not be collapsed to gold before the sell decision because it can retain combat value",
+    "the 410G chest can alter the feasible shop action set before any time benefit is considered",
+    "post-shop gold can create another pickup decision (Moon Mirror Tower 200G), creating a multi-stage economy dependency"
+  ]
+}
