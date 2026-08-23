@@ -1,0 +1,29 @@
+{
+  "experiment_id": "synthetic-nonlocal-detour-v1",
+  "schema_version": "0.1",
+  "platform": "synthetic",
+  "game": "toy-ssp",
+  "category": "nonlocal-optimization",
+  "lane": "synthetic",
+  "software_commit": "WORKTREE",
+  "rom_sha256": null,
+  "initial_state_id": "start",
+  "terminal_condition": "goal",
+  "policy_id": "value-iteration",
+  "scenario_set_id": "detour-v1",
+  "random_seed": null,
+  "sample_count": 0,
+  "metrics": {
+    "mean_seconds": 40.0,
+    "median_seconds": null,
+    "variance_seconds2": null,
+    "completion_probability": 1.0,
+    "mean_reset_seconds": null,
+    "target_seconds": null,
+    "target_probability": null,
+    "confidence_level": null,
+    "confidence_interval_seconds": null
+  },
+  "anomalies": [],
+  "notes": "局所的には10秒のdirectより20秒のdetourが遅いが、後続期待コストを含めるとdetour=40秒、direct=70秒となる合成benchmark。"
+}
