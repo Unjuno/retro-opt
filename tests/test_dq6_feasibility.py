@@ -31,6 +31,7 @@ def make_state() -> DQ6State:
         ),
         bag=(("herb", 2),),
         gold=720,
+        counters=(("small_medals", 7),),
         story_flags=frozenset({"amor_shop_open"}),
         resource_flags=frozenset({"iron_claw_collected"}),
     )
@@ -56,6 +57,13 @@ def test_upper_bound_gold_can_gate_recovery_branch() -> None:
     assert missing_requirements(state, low_gold_branch) == ("gold<=140",)
 
 
+def test_counter_threshold_can_gate_cumulative_reward_action() -> None:
+    state = make_state()
+    medal70 = ActionRequirements(min_counters=(("small_medals", 70),))
+    assert not is_feasible(state, medal70)
+    assert missing_requirements(state, medal70) == ("counter:small_medals>=70",)
+
+
 def test_invalid_gold_interval_is_rejected() -> None:
     with pytest.raises(ValueError):
         ActionRequirements(min_gold=200, max_gold=100)
@@ -67,7 +75,7 @@ def test_owned_count_includes_bag_personal_and_equipped() -> None:
     assert owned_count(state, "scale_shield") == 1
 
 
-def test_apply_resource_effect_can_model_purchase_and_seed_use() -> None:
+def test_apply_resource_effect_can_model_purchase_seed_and_medal_pickup() -> None:
     state = make_state()
     next_state = apply_resource_effect(
         state,
@@ -75,6 +83,7 @@ def test_apply_resource_effect_can_model_purchase_and_seed_use() -> None:
             gold_delta=-720,
             bag_deltas=(("iron_shield", 1),),
             stat_deltas=(("hassan", "max_hp", 5),),
+            counter_deltas=(("small_medals", 1),),
             add_resource_flags=frozenset({"iron_shield_bought", "life_seed_used"}),
         ),
     )
@@ -82,6 +91,7 @@ def test_apply_resource_effect_can_model_purchase_and_seed_use() -> None:
     assert next_state.gold == 0
     assert next_state.bag_count("iron_shield") == 1
     assert next_state.member("hassan").stat("max_hp") == 5
+    assert next_state.counter("small_medals") == 8
     assert "iron_shield_bought" in next_state.resource_flags
 
 
@@ -105,4 +115,13 @@ def test_negative_resource_count_is_rejected() -> None:
         apply_resource_effect(
             state,
             ResourceEffect(bag_deltas=(("magic_water", -1),)),
+        )
+
+
+def test_negative_counter_is_rejected() -> None:
+    state = make_state()
+    with pytest.raises(ValueError):
+        apply_resource_effect(
+            state,
+            ResourceEffect(counter_deltas=(("small_medals", -8),)),
         )
