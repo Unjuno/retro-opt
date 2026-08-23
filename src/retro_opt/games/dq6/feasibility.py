@@ -17,6 +17,7 @@ class ActionRequirements:
     min_gold: int = 0
     max_gold: int | None = None
     owned_items: tuple[tuple[str, int], ...] = ()
+    min_counters: tuple[tuple[str, int], ...] = ()
     required_story_flags: frozenset[str] = frozenset()
     required_resource_flags: frozenset[str] = frozenset()
     forbidden_resource_flags: frozenset[str] = frozenset()
@@ -32,6 +33,8 @@ class ActionRequirements:
                 raise ValueError("max_gold must be >= min_gold")
         if any(count <= 0 for _, count in self.owned_items):
             raise ValueError("owned item counts must be positive")
+        if any(value < 0 for _, value in self.min_counters):
+            raise ValueError("minimum counter values must be non-negative")
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,6 +58,7 @@ class ResourceEffect:
     bag_deltas: tuple[tuple[str, int], ...] = ()
     personal_item_deltas: tuple[tuple[str, str, int], ...] = ()
     stat_deltas: tuple[tuple[str, str, int], ...] = ()
+    counter_deltas: tuple[tuple[str, int], ...] = ()
     equipment_changes: tuple[EquipmentChange, ...] = ()
     add_resource_flags: frozenset[str] = frozenset()
     remove_resource_flags: frozenset[str] = frozenset()
@@ -86,6 +90,10 @@ def missing_requirements(
     for item, count in requirements.owned_items:
         if owned_count(state, item) < count:
             missing.append(f"item:{item}>={count}")
+
+    for counter_name, minimum in requirements.min_counters:
+        if state.counter(counter_name) < minimum:
+            missing.append(f"counter:{counter_name}>={minimum}")
 
     for flag in sorted(requirements.required_story_flags):
         if flag not in state.story_flags:
@@ -142,6 +150,14 @@ def apply_resource_effect(state: DQ6State, effect: ResourceEffect) -> DQ6State:
         if bag[item] < 0:
             raise ValueError(f"resource effect would make bag item negative: {item}")
 
+    counters = dict(state.counters)
+    for counter_name, delta in effect.counter_deltas:
+        counters[counter_name] = counters.get(counter_name, 0) + delta
+        if counters[counter_name] < 0:
+            raise ValueError(
+                f"resource effect would make counter negative: {counter_name}"
+            )
+
     members = {member.name: member for member in state.party}
 
     for name, item, delta in effect.personal_item_deltas:
@@ -197,5 +213,6 @@ def apply_resource_effect(state: DQ6State, effect: ResourceEffect) -> DQ6State:
         party=party,
         bag=_normalized_counts(bag),
         gold=gold,
+        counters=_normalized_counts(counters),
         resource_flags=resource_flags,
     )
