@@ -1,0 +1,41 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-to-moon-mirror-parameter-audit-v0",
+  "component_paths": [
+    "games/sfc/dq6/model/early_resource_event_graph.json",
+    "games/sfc/dq6/model/post_amor_shop_economy_graph.json",
+    "games/sfc/dq6/model/moon_mirror_resource_event_graph.json"
+  ],
+  "unknown_reference_count": 35,
+  "unique_unknown_value_count": 28,
+  "unknown_values": [
+    {"value": "gold:+unknown:sale_value", "reference_count": 1},
+    {"value": "unknown:410g-detour", "reference_count": 1},
+    {"value": "unknown:b2-to-horror-beast", "reference_count": 1},
+    {"value": "unknown:blade-boomerang-detour", "reference_count": 1},
+    {"value": "unknown:buy-menu-time", "reference_count": 1},
+    {"value": "unknown:formation-conditioned-fight", "reference_count": 1},
+    {"value": "unknown:formation-conditioned-flee", "reference_count": 1},
+    {"value": "unknown:horror-beast-policy-by-resource-state", "reference_count": 1},
+    {"value": "unknown:iron-breastplate-detour", "reference_count": 1},
+    {"value": "unknown:iron-breastplate-skip-delta", "reference_count": 1},
+    {"value": "unknown:iron-claw-detour", "reference_count": 1},
+    {"value": "unknown:life-seed-detour-and-menu", "reference_count": 1},
+    {"value": "unknown:magic-water-detour", "reference_count": 1},
+    {"value": "unknown:moon-mirror-200g-detour", "reference_count": 1},
+    {"value": "unknown:moon-mirror-200g-skip-delta", "reference_count": 1},
+    {"value": "unknown:moon-mirror-entry-to-iron-breastplate", "reference_count": 1},
+    {"value": "unknown:moon-mirror-strength-seed-detour", "reference_count": 1},
+    {"value": "unknown:moon-mirror-strength-seed-skip-delta", "reference_count": 1},
+    {"value": "unknown:nut-detour", "reference_count": 1},
+    {"value": "unknown:nut-detour-and-menu", "reference_count": 1},
+    {"value": "unknown:poison-zombies-policy-by-resource-state", "reference_count": 1},
+    {"value": "unknown:poison-zombies-post-battle-recovery", "reference_count": 1},
+    {"value": "unknown:post-boss-dialogue", "reference_count": 1},
+    {"value": "unknown:post-shop-to-moon-mirror", "reference_count": 2},
+    {"value": "unknown:sell-menu-time", "reference_count": 1},
+    {"value": "unknown:shop-exit", "reference_count": 1},
+    {"value": "unknown:skip-delta", "reference_count": 7},
+    {"value": "unknown:small-medal-detour", "reference_count": 1}
+  ]
+}
