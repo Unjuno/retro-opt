@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.1",
+  "model_id": "dq6-route-state-dimensions-v0",
+  "status": "structural-draft",
+  "principle": "将来の合法action、所要時間、遷移確率のいずれかを変え得る情報は、影響がないと確認されるまでstateから落とさない",
+  "dimensions": {
+    "progress": [
+      "segment",
+      "location",
+      "story_flags",
+      "resource_flags",
+      "available_future_events"
+    ],
+    "party": [
+      "member_order",
+      "alive",
+      "hp",
+      "mp",
+      "status",
+      "exp",
+      "level",
+      "stats",
+      "vocation",
+      "proficiency"
+    ],
+    "items": [
+      "bag_contents",
+      "personal_item_contents",
+      "personal_item_order_when_command_time_depends_on_it",
+      "equipment_by_slot",
+      "uncollected_pickups",
+      "consumed_items",
+      "sold_items"
+    ],
+    "economy": [
+      "gold",
+      "sellable_assets",
+      "reachable_shops",
+      "future_mandatory_or_candidate_purchases"
+    ],
+    "encounter": [
+      "encounter_count_when_relevant",
+      "current_formation",
+      "remaining_route",
+      "remaining_encounter_opportunities"
+    ],
+    "information": [
+      "human_observable_history",
+      "observable_random_outcomes",
+      "known_drops",
+      "known_resource_consumption"
+    ]
+  },
+  "resource_roles": {
+    "item": [
+      "combat",
+      "healing_or_consumable",
+      "route_unlock",
+      "resale",
+      "inventory_or_menu_layout"
+    ],
+    "gold": [
+      "purchase",
+      "recovery_service",
+      "future_flexibility"
+    ],
+    "exp": [
+      "level_threshold",
+      "stat_change",
+      "spell_or_ability_unlock",
+      "future_farming_reduction"
+    ]
+  },
+  "feasibility_examples": [
+    {
+      "action": "buy",
+      "requires": "gold >= price"
+    },
+    {
+      "action": "use_or_equip_item",
+      "requires": "item is owned by an accessible holder"
+    },
+    {
+      "action": "route_unlock",
+      "requires": "required story flag or key resource"
+    },
+    {
+      "action": "candidate_boss_policy",
+      "requires": "resources required by that policy are available"
+    }
+  ],
+  "dominance_warning": "timeだけが短いstateを優越とみなさない。item/gold/stats/flags/menu layout等の将来価値を同時に比較できる場合にのみ安全にpruneする"
+}
