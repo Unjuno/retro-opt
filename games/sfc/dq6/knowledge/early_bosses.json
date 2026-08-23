@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.1",
+  "knowledge_id": "dq6-sfc-early-bosses-v0",
+  "platform": "sfc",
+  "game": "dragon-quest-vi-jp",
+  "status": "public-chart-structured-draft",
+  "sources": [
+    {
+      "id": "maru_stone_cut_2016",
+      "url": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt",
+      "role": "explicit boss HP, action pattern, and reference battle policy"
+    },
+    {
+      "id": "mamemo_chart_2026",
+      "url": "https://mamemommm.com/dq6_chart_mmm",
+      "role": "current stability-oriented reference policy and resource notes"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "bloodypo",
+      "hp": 370,
+      "reference_policy_summary": [
+        "use Star Fragment to induce confusion",
+        "when confused, wait/attempt escape to induce enemy escape",
+        "heal with Hero's Hoimi, then herbs if MP is exhausted",
+        "if paralysis occurs, switch toward direct damage"
+      ],
+      "resource_dependencies": [
+        "hero_mp",
+        "hassan_herb_count",
+        "star_fragment",
+        "equipment_state_when_defense-debuff-reset matters"
+      ],
+      "source_ids": ["maru_stone_cut_2016", "mamemo_chart_2026"]
+    },
+    {
+      "id": "horror_beast",
+      "hp": 380,
+      "behavior": {
+        "type": "three-stage-rotation",
+        "stages": [
+          ["confusion_dance", "strong_attack"],
+          ["dazzling_light", "confusion_dance"],
+          ["strong_attack", "attack"]
+        ],
+        "targeting_note": "low-HP-concentrating normal attack behavior is noted in the reference chart"
+      },
+      "reference_policy_summary": [
+        "Hero casts Lucani until two successful layers, then attacks",
+        "Hassan attacks",
+        "Mireille applies Scala to party members before switching toward AI battle",
+        "healing decisions may override the basic sequence"
+      ],
+      "resource_dependencies": [
+        "hero_exp_and_level",
+        "hero_mp_for_lucani",
+        "mireille_mp_for_scala_and_recovery",
+        "party_hp_distribution",
+        "blade_boomerang",
+        "life_seed_result",
+        "encounter_damage_before_boss"
+      ],
+      "source_ids": ["maru_stone_cut_2016", "mamemo_chart_2026"]
+    },
+    {
+      "id": "poison_zombies",
+      "enemy_count": 3,
+      "hp_each": 350,
+      "behavior": {
+        "type": "group-rotation",
+        "sequence": [
+          "attack",
+          "venom_mist",
+          "strong_attack",
+          "poison_attack",
+          "attack",
+          "hoimi"
+        ]
+      },
+      "reference_policy_summary": [
+        "Mireille equips Iron Breastplate before the fight",
+        "Mireille applies Scala to the party",
+        "Hero repeatedly uses Lucani, preserving at least 3 MP in the legacy reference",
+        "Hassan initially defends and begins attacking after sufficient Lucani",
+        "after setup, AI battle is used",
+        "a temporary Speed Ring equip can be used when urgent先行回復 is required"
+      ],
+      "resource_dependencies": [
+        "iron_shields_purchased_after_horror_beast",
+        "iron_breastplate_pickup",
+        "hero_mp",
+        "mireille_mp",
+        "party_hp",
+        "speed_ring_holder",
+        "life_seed_and_other_permanent_stats",
+        "remaining_consumables"
+      ],
+      "source_ids": ["maru_stone_cut_2016"]
+    }
+  ],
+  "modeling_notes": [
+    "Reference policies are baselines, not constraints on the optimizer.",
+    "Behavior descriptions are structured from public RTA charts and should later be verified against emulator mechanics.",
+    "Battle transition models must condition on the entering resource state rather than using one fixed boss time."
+  ]
+}
