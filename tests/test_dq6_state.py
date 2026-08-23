@@ -15,3 +15,31 @@ def test_dq6_state_is_hashable_and_member_lookup_works() -> None:
 
     assert state.member("hero").exp == 825
     assert hash(state) == hash(state)
+
+
+def test_state_tracks_bag_personal_items_stats_and_equipment() -> None:
+    protagonist = PartyMemberState(
+        name="hero",
+        hp=50,
+        mp=10,
+        exp=847,
+        level=7,
+        stats=(("strength", 20),),
+        equipment=(("weapon", "blade_boomerang"),),
+        personal_items=(("herb", 2),),
+    )
+    state = DQ6State(
+        segment="amor_north",
+        location="b2",
+        party=(protagonist,),
+        bag=(("wing", 1),),
+        gold=410,
+    )
+
+    assert protagonist.stat("strength") == 20
+    assert protagonist.equipped("weapon") == "blade_boomerang"
+    assert state.bag_count("wing") == 1
+    assert state.owns("blade_boomerang")
+    assert state.owns("herb")
+    assert state.owns("wing")
+    assert not state.owns("iron_shield")
