@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-composed-graph-sanity-v0",
+  "components": [
+    "dq6-early-resource-route-v0",
+    "dq6-post-amor-shop-economy-v0"
+  ],
+  "node_count": 13,
+  "terminal_count": 1,
+  "error_count": 0,
+  "pass": true,
+  "errors": []
+}
