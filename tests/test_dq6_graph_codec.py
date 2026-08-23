@@ -38,6 +38,10 @@ def test_decode_typed_deterministic_effects() -> None:
             "gold:-100",
             "bag:iron_shield:+1",
             "counter:small_medals:+1",
+            "personal:hero:iron_claw:+1",
+            "stat:hassan:max_hp:+5",
+            "equip:hero:shield:iron_shield",
+            "unequip:hassan:shield",
             "mark:chest_collected",
             "unmark:chest_available",
         ]
@@ -46,6 +50,12 @@ def test_decode_typed_deterministic_effects() -> None:
     assert decoded.effect.gold_delta == 310
     assert decoded.effect.bag_deltas == (("iron_shield", 1),)
     assert decoded.effect.counter_deltas == (("small_medals", 1),)
+    assert decoded.effect.personal_item_deltas == (("hero", "iron_claw", 1),)
+    assert decoded.effect.stat_deltas == (("hassan", "max_hp", 5),)
+    assert [(x.member, x.slot, x.item) for x in decoded.effect.equipment_changes] == [
+        ("hero", "shield", "iron_shield"),
+        ("hassan", "shield", None),
+    ]
     assert decoded.effect.add_resource_flags == frozenset({"chest_collected"})
     assert decoded.effect.remove_resource_flags == frozenset({"chest_available"})
     assert decoded.unresolved == ()
