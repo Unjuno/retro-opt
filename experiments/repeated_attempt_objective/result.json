@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "repeated-attempt-objective-v0",
+  "status": "synthetic-demo",
+  "empirical_claim": false,
+  "rows": [
+    {
+      "id": "stable",
+      "success_probability": 0.25,
+      "mean_success_duration_seconds": 400.0,
+      "mean_failure_duration_seconds": 180.0,
+      "expected_wall_clock_to_success_seconds": 940.0
+    },
+    {
+      "id": "aggressive",
+      "success_probability": 0.1,
+      "mean_success_duration_seconds": 380.0,
+      "mean_failure_duration_seconds": 120.0,
+      "expected_wall_clock_to_success_seconds": 1460.0
+    },
+    {
+      "id": "tail-heavy",
+      "success_probability": 0.05,
+      "mean_success_duration_seconds": 360.0,
+      "mean_failure_duration_seconds": 60.0,
+      "expected_wall_clock_to_success_seconds": 1500.0
+    }
+  ]
+}
