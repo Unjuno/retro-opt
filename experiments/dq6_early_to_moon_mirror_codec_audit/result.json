@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-early-to-moon-mirror-codec-audit-v0",
+  "issue_count": 3,
+  "issues_by_field": {
+    "deterministic_effects": 2,
+    "requirements": 1
+  },
+  "issues": [
+    {
+      "node_id": "amor_post_horror_shop",
+      "action_id": "sell_selected_asset",
+      "field": "requirements",
+      "detail": "unsupported requirement fields: ['owned_sellable_asset']"
+    },
+    {
+      "node_id": "amor_post_horror_shop",
+      "action_id": "sell_selected_asset",
+      "field": "deterministic_effects",
+      "detail": "remove:selected_asset: untyped or unsupported deterministic effect token"
+    },
+    {
+      "node_id": "amor_post_horror_shop",
+      "action_id": "sell_selected_asset",
+      "field": "deterministic_effects",
+      "detail": "gold:+unknown:sale_value: contains unknown parameter"
+    }
+  ]
+}
