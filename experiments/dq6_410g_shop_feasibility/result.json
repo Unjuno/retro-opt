@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "dq6-410g-shop-feasibility-v0",
+  "status": "structural-sensitivity-only",
+  "empirical_claim": false,
+  "pickup_gold": 410,
+  "iron_shield_price": 720,
+  "assumptions": [
+    "sale income is excluded",
+    "pickup/menu time is excluded",
+    "future value after the shop is excluded",
+    "this experiment tests purchase feasibility only, not route optimality"
+  ],
+  "rows": [
+    {
+      "target_iron_shield_count": 1,
+      "required_gold_without_pickup": 720,
+      "starting_gold_window_where_410g_changes_feasibility": [310, 719]
+    },
+    {
+      "target_iron_shield_count": 2,
+      "required_gold_without_pickup": 1440,
+      "starting_gold_window_where_410g_changes_feasibility": [1030, 1439]
+    }
+  ]
+}
