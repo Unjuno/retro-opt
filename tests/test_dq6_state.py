@@ -11,13 +11,16 @@ def test_dq6_state_is_hashable_and_member_lookup_works() -> None:
             PartyMemberState("mireille", hp=45, mp=18, exp=600, level=6),
         ),
         gold=1000,
+        counters=(("small_medals", 7),),
     )
 
     assert state.member("hero").exp == 825
+    assert state.counter("small_medals") == 7
+    assert state.counter("missing_counter") == 0
     assert hash(state) == hash(state)
 
 
-def test_state_tracks_bag_personal_items_stats_and_equipment() -> None:
+def test_state_tracks_bag_personal_items_stats_equipment_and_counters() -> None:
     protagonist = PartyMemberState(
         name="hero",
         hp=50,
@@ -34,11 +37,13 @@ def test_state_tracks_bag_personal_items_stats_and_equipment() -> None:
         party=(protagonist,),
         bag=(("wing", 1),),
         gold=410,
+        counters=(("small_medals", 7), ("encounter_skill_count", 0)),
     )
 
     assert protagonist.stat("strength") == 20
     assert protagonist.equipped("weapon") == "blade_boomerang"
     assert state.bag_count("wing") == 1
+    assert state.counter("small_medals") == 7
     assert state.owns("blade_boomerang")
     assert state.owns("herb")
     assert state.owns("wing")
