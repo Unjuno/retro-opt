@@ -1,0 +1,165 @@
+{
+  "schema_version": "0.1",
+  "graph_id": "dq6-moon-mirror-resource-v0",
+  "platform": "sfc",
+  "game": "dragon-quest-vi-jp",
+  "status": "structural-draft",
+  "start_node": "moon_mirror_entry",
+  "terminal_nodes": [
+    "moon_mirror_segment_complete"
+  ],
+  "nodes": [
+    {
+      "id": "moon_mirror_entry",
+      "kind": "segment-entry",
+      "actions": [
+        {
+          "id": "advance_to_iron_breastplate_choice",
+          "to": "moon_mirror_iron_breastplate_choice",
+          "duration_model": "unknown:moon-mirror-entry-to-iron-breastplate"
+        }
+      ]
+    },
+    {
+      "id": "moon_mirror_iron_breastplate_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_iron_breastplate",
+          "to": "poison_zombies_prebattle",
+          "duration_model": "unknown:iron-breastplate-detour",
+          "deterministic_effects": [
+            "iron_breastplate:+1",
+            "mark:moon_mirror_iron_breastplate_collected"
+          ],
+          "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+        },
+        {
+          "id": "skip_iron_breastplate",
+          "to": "poison_zombies_prebattle",
+          "duration_model": "unknown:iron-breastplate-skip-delta",
+          "deterministic_effects": [
+            "mark:moon_mirror_iron_breastplate_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "poison_zombies_prebattle",
+      "kind": "policy-decision",
+      "actions": [
+        {
+          "id": "fight_poison_zombies",
+          "to": "poison_zombies_defeated",
+          "duration_model": "unknown:poison-zombies-policy-by-resource-state",
+          "policy_inputs": [
+            "party_hp",
+            "party_mp",
+            "exp",
+            "level",
+            "stats",
+            "equipment",
+            "personal_items",
+            "bag",
+            "iron_shield_count",
+            "iron_breastplate",
+            "speed_ring_holder"
+          ],
+          "random_effects": [
+            "battle_time",
+            "clear_or_death",
+            "hp",
+            "mp",
+            "status",
+            "consumables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "poison_zombies_defeated",
+      "kind": "state-change",
+      "actions": [
+        {
+          "id": "post_battle_recovery_and_continue",
+          "to": "moon_mirror_200g_choice",
+          "duration_model": "unknown:poison-zombies-post-battle-recovery",
+          "random_effects": [
+            "recovery_mp_cost",
+            "remaining_hp_mp"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moon_mirror_200g_choice",
+      "kind": "resource-decision",
+      "reference_policy_trigger": "resource_flag:moon_mirror_200g_reference_candidate",
+      "actions": [
+        {
+          "id": "take_200g",
+          "to": "moon_mirror_strength_seed_choice",
+          "duration_model": "unknown:moon-mirror-200g-detour",
+          "deterministic_effects": [
+            "gold:+200",
+            "mark:moon_mirror_200g_collected"
+          ],
+          "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+        },
+        {
+          "id": "skip_200g",
+          "to": "moon_mirror_strength_seed_choice",
+          "duration_model": "unknown:moon-mirror-200g-skip-delta",
+          "deterministic_effects": [
+            "mark:moon_mirror_200g_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moon_mirror_strength_seed_choice",
+      "kind": "resource-decision",
+      "actions": [
+        {
+          "id": "take_strength_seed",
+          "to": "moon_mirror_segment_complete",
+          "duration_model": "unknown:moon-mirror-strength-seed-detour",
+          "deterministic_effects": [
+            "strength_seed:+1",
+            "mark:moon_mirror_strength_seed_collected"
+          ],
+          "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+        },
+        {
+          "id": "skip_strength_seed",
+          "to": "moon_mirror_segment_complete",
+          "duration_model": "unknown:moon-mirror-strength-seed-skip-delta",
+          "deterministic_effects": [
+            "mark:moon_mirror_strength_seed_skipped"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moon_mirror_segment_complete",
+      "kind": "terminal",
+      "actions": []
+    }
+  ],
+  "known_reference_facts": [
+    {
+      "fact": "Poison Zombies are three enemies with 350 HP each in the legacy detailed chart",
+      "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+    },
+    {
+      "fact": "the detailed chart collects the 200G chest after the Poison Zombie battle",
+      "source": "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+    }
+  ],
+  "unmeasured_parameters": [
+    "Moon Mirror Tower movement and pickup detour times",
+    "Poison Zombie battle transition distribution by entering resource state",
+    "post-battle recovery time and MP cost",
+    "future value of 200G and strength seed"
+  ]
+}
