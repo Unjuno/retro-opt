@@ -38,6 +38,35 @@ def solve_policy(downstream_penalty_seconds: float) -> dict[int, str]:
     return {state.exp: policy[state] for state in starts}
 
 
+def _compress_policy(policy: dict[int, str]) -> list[dict[str, object]]:
+    ordered = sorted(policy.items())
+    ranges: list[dict[str, object]] = []
+    start_exp, current_action = ordered[0]
+    previous_exp = start_exp
+
+    for exp, action in ordered[1:]:
+        if action != current_action or exp != previous_exp + 1:
+            ranges.append(
+                {
+                    "exp_min": start_exp,
+                    "exp_max": previous_exp,
+                    "action": current_action,
+                }
+            )
+            start_exp = exp
+            current_action = action
+        previous_exp = exp
+
+    ranges.append(
+        {
+            "exp_min": start_exp,
+            "exp_max": previous_exp,
+            "action": current_action,
+        }
+    )
+    return ranges
+
+
 def run() -> dict[str, object]:
     cases: list[dict[str, object]] = []
     for penalty in DOWNSTREAM_PENALTIES_SECONDS:
@@ -47,7 +76,7 @@ def run() -> dict[str, object]:
             {
                 "downstream_penalty_seconds": penalty,
                 "first_exp_where_fight_is_optimal": min(fight_exp) if fight_exp else None,
-                "policy": {str(xp): policy[xp] for xp in CURRENT_EXP_VALUES},
+                "policy_ranges": _compress_policy(policy),
             }
         )
 
