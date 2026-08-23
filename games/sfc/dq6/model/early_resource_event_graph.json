@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "graph_id": "dq6-early-resource-route-v0",
   "platform": "sfc",
   "game": "dragon-quest-vi-jp",
@@ -51,7 +51,7 @@
           "to": "amor_north_blade_boomerang_choice",
           "duration_model": "unknown:small-medal-detour",
           "deterministic_effects": [
-            "small_medal:+1",
+            "counter:small_medals:+1",
             "mark:amor_north_small_medal_collected"
           ]
         },
@@ -74,7 +74,7 @@
           "to": "amor_north_410g_choice",
           "duration_model": "unknown:blade-boomerang-detour",
           "deterministic_effects": [
-            "blade_boomerang:+1",
+            "personal:hero:blade_boomerang:+1",
             "mark:blade_boomerang_collected"
           ]
         },
@@ -170,7 +170,8 @@
             "equipment",
             "personal_items",
             "bag",
-            "gold"
+            "gold",
+            "counters"
           ]
         }
       ]
@@ -195,7 +196,7 @@
           "to": "post_horror_iron_claw_choice",
           "duration_model": "unknown:magic-water-detour",
           "deterministic_effects": [
-            "magic_water:+1",
+            "personal:hero:magic_water:+1",
             "mark:post_horror_magic_water_collected"
           ]
         },
@@ -218,7 +219,7 @@
           "to": "post_horror_mysterious_nut_choice",
           "duration_model": "unknown:iron-claw-detour",
           "deterministic_effects": [
-            "iron_claw:+1",
+            "personal:hero:iron_claw:+1",
             "mark:post_horror_iron_claw_collected"
           ]
         },
@@ -241,7 +242,7 @@
           "to": "amor_post_horror_shop",
           "duration_model": "unknown:nut-detour-and-menu",
           "random_effects": [
-            "protagonist_max_mp_seed_gain"
+            "hero_max_mp_seed_gain"
           ],
           "deterministic_effects": [
             "mark:mysterious_nut_collected",
@@ -253,7 +254,7 @@
           "to": "amor_post_horror_shop",
           "duration_model": "unknown:nut-detour",
           "deterministic_effects": [
-            "mysterious_nut:+1",
+            "personal:hero:mysterious_nut:+1",
             "mark:mysterious_nut_collected"
           ]
         },
@@ -282,7 +283,7 @@
             "remove:selected_asset",
             "gold:+unknown:sale_value"
           ],
-          "note": "実際のitemとsale valueはstate/action生成時に具体化する"
+          "note": "template action: asset holder, item id and sale value are resolved by the action generator before execution"
         },
         {
           "id": "buy_iron_shield",
@@ -293,7 +294,7 @@
           },
           "deterministic_effects": [
             "gold:-720",
-            "iron_shield:+1"
+            "bag:iron_shield:+1"
           ]
         },
         {
