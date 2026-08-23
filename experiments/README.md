@@ -7,6 +7,7 @@
 | Experiment | Type | Status | 主な目的 |
 | --- | --- | --- | --- |
 | `solver_random_dag_crosscheck/` | solver validation | PASS | value iterationを小規模全policy総当たりと照合 |
+| `solver_retry_crosscheck/` | solver validation | PASS | self-loopを含むretry SSPを解析解と照合 |
 | `dq6_early_break_even/` | sensitivity analysis | provisional | 追加1戦のEXP閾値価値の損益分岐を計算 |
 | `dq6_early_policy/` | sensitivity analysis | provisional | 現在EXPに応じたfight/skip境界を確認 |
 | `dq6_early_horizon/` | sensitivity analysis | provisional | 残りencounter機会を含む有限horizon policyを確認 |
@@ -21,9 +22,10 @@
 ## 現時点の重要な結論
 
 1. 小規模acyclic stochastic problemでは、`solve_ssp` と全policy総当たりreferenceが200/200ケースで一致した。
-2. DQ6序盤の仮説モデルでは、fight/skipは固定ruleではなく現在EXPで切り替わる。
-3. 同じEXPでも、ボスまでに残る戦闘機会の数によってactionが変わり得る。
-4. Metal Slimeはappearance rateとEXP reward probabilityを分離しなければならない。公開資料のB2約20%はappearanceの参考値であり、撃破率を別途測る必要がある。
+2. 単純なself-loop retry問題では、`solve_ssp` と解析解が200/200ケースで一致した。
+3. DQ6序盤の仮説モデルでは、fight/skipは固定ruleではなく現在EXPで切り替わる。
+4. 同じEXPでも、ボスまでに残る戦闘機会の数によってactionが変わり得る。
+5. Metal Slimeはappearance rateとEXP reward probabilityを分離しなければならない。公開資料のB2約20%はappearanceの参考値であり、撃破率を別途測る必要がある。
 
 ## 次にempirical化する順序
 
