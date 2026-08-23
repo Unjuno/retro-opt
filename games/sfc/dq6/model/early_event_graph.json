@@ -1,0 +1,152 @@
+{
+  "schema_version": "0.1",
+  "graph_id": "dq6-early-dream-to-horror-beast-v0",
+  "platform": "sfc",
+  "game": "dragon-quest-vi-jp",
+  "status": "structural-draft",
+  "start_node": "dream_cave_entry",
+  "terminal_nodes": ["horror_beast_defeated"],
+  "nodes": [
+    {
+      "id": "dream_cave_entry",
+      "kind": "segment-entry",
+      "observable_state_keys": ["party", "hp", "mp", "exp", "inventory"],
+      "actions": [
+        {
+          "id": "traverse_dream_cave",
+          "to": "dream_cave_pre_bloodypo",
+          "duration_model": "unknown:dream-cave-traversal",
+          "random_effects": ["encounter-sequence", "damage", "mp-consumption", "possible-metal"]
+        }
+      ]
+    },
+    {
+      "id": "dream_cave_pre_bloodypo",
+      "kind": "decision",
+      "observable_state_keys": ["hp", "mp", "inventory", "encounter-history", "exp"],
+      "actions": [
+        {
+          "id": "fight_bloodypo",
+          "to": "post_bloodypo",
+          "duration_model": "unknown:bloodypo-policy",
+          "random_effects": ["battle-outcome", "resource-consumption", "exp"]
+        }
+      ]
+    },
+    {
+      "id": "post_bloodypo",
+      "kind": "macro-transition",
+      "observable_state_keys": ["party", "exp", "gold", "inventory"],
+      "actions": [
+        {
+          "id": "progress_to_amor_north",
+          "to": "amor_north_entry",
+          "duration_model": "unknown:post-dream-to-amor-north",
+          "random_effects": ["overworld-encounters", "exp", "damage", "resource-consumption"]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_entry",
+      "kind": "segment-entry",
+      "observable_state_keys": ["party", "hp", "mp", "exp", "inventory"],
+      "actions": [
+        {
+          "id": "advance_before_blade_boomerang",
+          "to": "amor_north_blade_boomerang",
+          "duration_model": "unknown:amor-north-pre-blade",
+          "random_effects": ["encounter-sequence", "fight-or-flee-decisions", "exp", "damage"]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_blade_boomerang",
+      "kind": "state-change",
+      "observable_state_keys": ["exp", "hp", "mp", "inventory"],
+      "actions": [
+        {
+          "id": "take_blade_boomerang",
+          "to": "amor_north_b2_farming",
+          "duration_model": "unknown:item-pickup",
+          "deterministic_effects": ["blade-boomerang-available"]
+        }
+      ]
+    },
+    {
+      "id": "amor_north_b2_farming",
+      "kind": "repeated-decision",
+      "observable_state_keys": ["exp", "level", "hp", "mp", "encounter-formation", "inventory", "remaining-route"],
+      "actions": [
+        {
+          "id": "fight_current_encounter",
+          "to": "amor_north_b2_farming",
+          "duration_model": "unknown:encounter-fight",
+          "random_effects": ["battle-time", "damage", "exp", "metal-appearance", "metal-kill"]
+        },
+        {
+          "id": "flee_current_encounter",
+          "to": "amor_north_b2_farming",
+          "duration_model": "unknown:encounter-flee",
+          "random_effects": ["flee-success", "damage", "time"]
+        },
+        {
+          "id": "leave_farming_area",
+          "to": "horror_beast_prebattle",
+          "duration_model": "unknown:amor-north-b2-to-boss"
+        }
+      ]
+    },
+    {
+      "id": "horror_beast_prebattle",
+      "kind": "decision",
+      "observable_state_keys": ["party", "hp", "mp", "exp", "level", "inventory"],
+      "actions": [
+        {
+          "id": "fight_horror_beast",
+          "to": "horror_beast_defeated",
+          "duration_model": "unknown:horror-beast-policy",
+          "random_effects": ["battle-time", "clear-or-death", "resource-consumption"]
+        }
+      ]
+    },
+    {
+      "id": "horror_beast_defeated",
+      "kind": "terminal",
+      "observable_state_keys": ["party", "hp", "mp", "exp", "level", "inventory", "time"]
+    }
+  ],
+  "reference_facts": [
+    {
+      "id": "amor-north-b2-metal-appearance-approx",
+      "value": 0.2,
+      "unit": "probability",
+      "quality": "approximate-public-reference",
+      "source": "https://dqrta.com/data/exp01/",
+      "note": "appearance reference only; not Metal EXP reward probability"
+    },
+    {
+      "id": "metal-slime-exp",
+      "value": 1350,
+      "unit": "exp",
+      "quality": "public-reference",
+      "source": "https://dqrta.com/enemies/metal-slime/"
+    },
+    {
+      "id": "protagonist-level7-exp",
+      "value": 847,
+      "unit": "exp",
+      "quality": "public-chart-reference",
+      "source": "https://togoblo25.fc2.net/blog-entry-131.html"
+    }
+  ],
+  "unmeasured_parameters": [
+    "dream-cave encounter distribution",
+    "dream-cave Metal kill probability and time",
+    "post-dream overworld encounter distribution",
+    "Amor North formation probabilities",
+    "fight time by formation and state",
+    "flee time / success / damage distribution",
+    "Metal kill probability given appearance",
+    "Horror Beast battle time / clear probability by entering state"
+  ]
+}
