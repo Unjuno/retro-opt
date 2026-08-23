@@ -1,46 +1,34 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "graph_id": "dq6-post-amor-shop-economy-v0",
   "platform": "sfc",
   "game": "dragon-quest-vi-jp",
   "status": "structural-draft",
   "start_node": "post_amor_shop_exit",
   "terminal_nodes": [
-    "moon_mirror_route_ready"
+    "moon_mirror_entry"
   ],
   "nodes": [
     {
       "id": "post_amor_shop_exit",
-      "kind": "conditional-resource-decision",
+      "kind": "conditional-resource-state-marking",
       "actions": [
         {
-          "id": "collect_moon_mirror_200g_low_gold",
-          "to": "moon_mirror_route_ready",
-          "duration_model": "unknown:moon-mirror-200g-detour",
+          "id": "mark_moon_mirror_200g_recovery_candidate",
+          "to": "moon_mirror_entry",
+          "duration_model": "unknown:post-shop-to-moon-mirror",
           "requirements": {
             "max_gold": 140
           },
           "deterministic_effects": [
-            "gold:+200",
-            "mark:moon_mirror_200g_collected"
+            "mark:moon_mirror_200g_reference_candidate"
           ],
-          "source": "https://mamemommm.com/dq6_chart_mmm"
+          "source": "https://mamemommm.com/dq6_chart_mmm",
+          "note": "The reference chart says to collect the Moon Mirror Tower 200G chest when post-shop gold is <=140G. The actual +200G effect occurs later, after the Poison Zombie battle."
         },
         {
-          "id": "skip_moon_mirror_200g_low_gold",
-          "to": "moon_mirror_route_ready",
-          "duration_model": "unknown:moon-mirror-200g-skip-delta",
-          "requirements": {
-            "max_gold": 140
-          },
-          "deterministic_effects": [
-            "mark:moon_mirror_200g_skipped"
-          ],
-          "note": "reference chart recommends collection in this gold range; solver still keeps skip as a candidate"
-        },
-        {
-          "id": "continue_without_moon_mirror_200g",
-          "to": "moon_mirror_route_ready",
+          "id": "continue_normal_gold",
+          "to": "moon_mirror_entry",
           "duration_model": "unknown:post-shop-to-moon-mirror",
           "requirements": {
             "min_gold": 141
@@ -49,19 +37,18 @@
       ]
     },
     {
-      "id": "moon_mirror_route_ready",
+      "id": "moon_mirror_entry",
       "kind": "terminal",
       "actions": []
     }
   ],
   "modeling_notes": [
-    "The 140G threshold is taken from a public RTA chart and is a reference policy boundary, not a proven optimum.",
-    "Both collect and skip are retained for gold <= 140 so the solver can challenge the human reference policy once timing/downstream values are measured.",
-    "The high-gold branch uses min_gold=141 only to represent the chart's reference condition."
+    "The <=140G threshold is a public RTA chart reference boundary, not a proven optimum.",
+    "This segment does not collect the 200G chest. It only carries forward whether the human reference policy would consider it.",
+    "The 200G pickup is modeled in the Moon Mirror Tower segment after the Poison Zombie battle, matching the route order in the detailed chart."
   ],
   "unmeasured_parameters": [
-    "Moon Mirror Tower 200G pickup detour time",
-    "route timing difference when skipping the 200G chest",
+    "post-shop to Moon Mirror Tower travel time",
     "downstream value of post-shop gold"
   ]
 }
