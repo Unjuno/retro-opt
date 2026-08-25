@@ -1,0 +1,127 @@
+{
+  "schema_version": "0.1",
+  "dataset_id": "dq6-sfc-early-encounter-reference-v0",
+  "status": "public-reference",
+  "scope": "early game through Moon Mirror Tower",
+  "areas": [
+    {
+      "id": "dream_cave_b1",
+      "area_level": 10,
+      "encounter_rate_id": 2,
+      "encounter_counter_coefficient_reference": "3/4",
+      "monsters": ["big_face", "fly_mage", "bubble_slime", "slime"],
+      "sources": [
+        "https://gcgx.games/dq6/encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+      ]
+    },
+    {
+      "id": "dream_cave_b2",
+      "area_level": 11,
+      "encounter_rate_id": 3,
+      "encounter_counter_coefficient_reference": "1",
+      "monsters": ["baby_goyle", "slime_knight", "peepo", "mud_doll", "hell_hornet", "bubble_slime"],
+      "sources": [
+        "https://gcgx.games/dq6/encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+      ]
+    },
+    {
+      "id": "dream_cave_b3",
+      "area_level": 11,
+      "encounter_rate_id": 1,
+      "encounter_counter_coefficient_reference": "2/3",
+      "monsters": ["baby_goyle", "slime_knight", "fly_mage", "peepo", "metal_slime", "mud_doll"],
+      "sources": [
+        "https://gcgx.games/dq6/encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+      ]
+    },
+    {
+      "id": "upper_amor_field",
+      "area_level": 13,
+      "encounter_rate_id": 3,
+      "monsters": ["big_face", "fly_mage", "slime_knight", "gizmo", "peepo"],
+      "sources": ["https://gcgx.games/dq6/encounter.html"]
+    },
+    {
+      "id": "amor_north_b2",
+      "area_level": 11,
+      "encounter_rate_id": 3,
+      "monsters": ["baby_goyle", "slime_knight", "peepo", "mud_doll", "hell_hornet", "bubble_slime"],
+      "note": "public area table groups Dream Cave B2 and Amor North B2 under the same entry; formation distribution still requires the formation table, not this monster list alone",
+      "sources": ["https://gcgx.games/dq6/encounter.html"]
+    },
+    {
+      "id": "amor_north_b3_b4",
+      "area_level": 14,
+      "encounter_rate_id": 0,
+      "monsters": ["flower_mage", "silent_sheep", "slave_of_death", "gizmo", "fluffy_beast", "metal_slime"],
+      "sources": ["https://gcgx.games/dq6/encounter.html"]
+    },
+    {
+      "id": "moon_mirror_b1_east_2_4",
+      "area_level": 15,
+      "encounter_rate_id": 0,
+      "encounter_counter_coefficient_reference": "1/2 for east tower through 4F",
+      "monsters": ["word_user", "shadow", "silent_sheep", "hell_hornet", "flower_mage"],
+      "sources": [
+        "https://gcgx.games/dq6/encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+      ]
+    },
+    {
+      "id": "moon_mirror_east_5_6_west_2",
+      "area_level": 15,
+      "encounter_rate_id": 5,
+      "encounter_counter_coefficient_reference": "3/2",
+      "monsters": ["devil_mirror", "shadow", "mud_doll", "onion_man", "flower_mage", "slave_of_death", "death_farena", "fluffy_beast"],
+      "sources": [
+        "https://gcgx.games/dq6/encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+      ]
+    },
+    {
+      "id": "moon_mirror_west_3_6",
+      "area_level": 15,
+      "encounter_rate_id": 5,
+      "encounter_counter_coefficient_reference": "3/2",
+      "monsters": ["devil_mirror", "death_farena", "shadow", "slave_of_death", "word_user", "hell_hornet"],
+      "sources": [
+        "https://gcgx.games/dq6/encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+      ]
+    }
+  ],
+  "counter_rules": {
+    "model": "decrementing encounter counter",
+    "reset_events": [
+      "floor_transition",
+      "encounter",
+      "chimera_wing",
+      "zoom",
+      "evac"
+    ],
+    "terrain_cost_reference_units": {
+      "plain_bridge_snow": 256,
+      "wetland_or_sand": 384,
+      "forest_or_poison_swamp": 460,
+      "mountain": 640,
+      "sea_or_seabed": 102
+    },
+    "stealth": {
+      "effect": "halve encounter-counter consumption",
+      "effective_steps": 127,
+      "non_encounter_floor_steps_do_not_consume_duration": true
+    },
+    "repel": {
+      "holy_water_or_protection_effect": "when effective, walking does not consume encounter counter"
+    },
+    "source": "http://hotarubita.blog.fc2.com/blog-entry-16.html"
+  },
+  "important_limitations": [
+    "monster lists do not define exact formation probabilities",
+    "formation frequencies and group-size rules should be ingested from the encounter formation tables",
+    "public reference data must be cross-checked against SFC version and eventually ROM/emulator"
+  ]
+}
