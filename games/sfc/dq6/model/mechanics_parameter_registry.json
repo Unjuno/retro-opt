@@ -1,0 +1,293 @@
+{
+  "schema_version": "0.1",
+  "model_id": "dq6-mechanics-parameter-registry-v0",
+  "platform": "sfc",
+  "game": "dragon-quest-vi-jp",
+  "status": "research-derived-structural-draft",
+  "principle": "derive state/action/transition parameters from known game mechanics before estimating them empirically",
+  "parameter_classes": {
+    "static_exact": "fixed game data obtainable from trusted SFC references or ROM tables",
+    "derived_exact": "distribution or value derivable from static data plus known algorithm",
+    "emulator_timing": "frame/time quantity to be measured in emulator",
+    "human_execution": "runner-dependent execution or observation parameter"
+  },
+  "domains": [
+    {
+      "id": "encounter_process",
+      "state_variables": [
+        "location",
+        "floor_or_region",
+        "terrain_class",
+        "encounter_counter_belief",
+        "stealth_or_repel_state",
+        "stealth_remaining_steps",
+        "protagonist_level",
+        "area_level"
+      ],
+      "static_parameters": [
+        "encounter_counter_decrement_coefficient",
+        "terrain_step_cost",
+        "counter_reset_events",
+        "area_level",
+        "preemptive_setting"
+      ],
+      "derived_outputs": [
+        "encounter_probability_along_path",
+        "encounter_location_distribution",
+        "preemptive_probability"
+      ],
+      "preferred_solver": "exact counter-state DP or belief-state DP",
+      "sources": [
+        "https://showa-yojyo.github.io/dqbook/dq6_encounter.html",
+        "http://hotarubita.blog.fc2.com/blog-entry-16.html",
+        "https://gcgx.games/dq6/analyze.html"
+      ]
+    },
+    {
+      "id": "encounter_formation",
+      "state_variables": ["encounter_table_id"],
+      "static_parameters": [
+        "single_group_frequency",
+        "multiple_group_frequency",
+        "fixed_formation_frequency",
+        "monster_ids",
+        "group_count_rules",
+        "member_count_rules"
+      ],
+      "derived_outputs": ["formation_probability_distribution"],
+      "preferred_solver": "exact discrete enumeration",
+      "sources": ["https://showa-yojyo.github.io/dqbook/dq6_encounter.html"]
+    },
+    {
+      "id": "escape_and_turn_order",
+      "state_variables": [
+        "escape_attempt_count",
+        "preemptive_state",
+        "protagonist_level",
+        "area_level",
+        "party_agility",
+        "enemy_agility",
+        "current_vocations",
+        "vocation_ranks"
+      ],
+      "static_parameters": [
+        "escape_probability_by_attempt",
+        "ranger_extra_escape_probability_by_rank",
+        "action_priority_classes",
+        "turn_order_randomization_formula"
+      ],
+      "derived_outputs": [
+        "escape_success_probability",
+        "actor_order_distribution"
+      ],
+      "preferred_solver": "exact discrete probability calculation",
+      "sources": ["https://gcgx.games/dq6/analyze.html"]
+    },
+    {
+      "id": "monster_ai",
+      "state_variables": [
+        "monster_hp",
+        "monster_mp",
+        "rotation_index",
+        "ai_phase",
+        "selected_focus_target",
+        "party_hp",
+        "party_status",
+        "battle_status_effects"
+      ],
+      "static_parameters": [
+        "action_slots",
+        "action_slot_weights",
+        "rotation_definition",
+        "phase_transitions",
+        "multi_action_rule",
+        "targeting_rule",
+        "intelligence",
+        "automatic_hp_recovery"
+      ],
+      "derived_outputs": ["enemy_action_distribution"],
+      "preferred_solver": "finite-state MDP / exact battle enumeration when tractable",
+      "sources": ["https://dqwiz.net/dq6/monster.html"]
+    },
+    {
+      "id": "combat_math",
+      "state_variables": [
+        "hp",
+        "mp",
+        "attack",
+        "defense",
+        "agility",
+        "buffs",
+        "debuffs",
+        "status",
+        "equipment",
+        "learned_commands"
+      ],
+      "static_parameters": [
+        "damage_formulas",
+        "critical_rules",
+        "evasion_rules",
+        "resistance_table",
+        "equipment_fixed_reduction",
+        "equipment_special_effects",
+        "species_multipliers",
+        "spell_and_skill_effects"
+      ],
+      "derived_outputs": [
+        "damage_distribution",
+        "status_success_probability",
+        "survival_probability",
+        "turn_count_distribution"
+      ],
+      "preferred_solver": "exact transition enumeration plus Monte Carlo cross-check",
+      "sources": [
+        "https://gcgx.games/dq6/analyze.html",
+        "https://dqwiz.net/dq6/monster.html"
+      ]
+    },
+    {
+      "id": "level_growth",
+      "state_variables": ["exp", "level", "base_stats", "learned_innate_commands"],
+      "static_parameters": [
+        "exp_thresholds",
+        "growth_curves",
+        "innate_command_unlock_levels"
+      ],
+      "derived_outputs": [
+        "next_level",
+        "stat_changes",
+        "newly_available_commands",
+        "escape_and_turn_order_changes"
+      ],
+      "preferred_solver": "deterministic transition table",
+      "sources": ["https://showa-yojyo.github.io/dqbook/dq6_level.html"]
+    },
+    {
+      "id": "vocation_proficiency",
+      "state_variables": [
+        "current_vocation",
+        "rank",
+        "wins_in_current_rank",
+        "vocation_history",
+        "learned_commands",
+        "special_vocation_items"
+      ],
+      "static_parameters": [
+        "wins_required_by_rank",
+        "area_proficiency_level_limit",
+        "vocation_stat_multipliers",
+        "vocation_special_traits",
+        "master_bonus",
+        "advanced_vocation_requirements",
+        "command_unlocks"
+      ],
+      "derived_outputs": [
+        "proficiency_gain_eligibility",
+        "post_battle_rank",
+        "effective_stats",
+        "legal_vocation_changes"
+      ],
+      "preferred_solver": "DP over vocation unlock graph and battle-count counters",
+      "sources": [
+        "https://dqwiz.net/dq6/job.html",
+        "http://dqmaniac.g1.xrea.com/dq6level.html"
+      ]
+    },
+    {
+      "id": "items_equipment_economy",
+      "state_variables": [
+        "bag",
+        "personal_items",
+        "equipment",
+        "gold",
+        "resource_flags",
+        "reachable_shops"
+      ],
+      "static_parameters": [
+        "item_buy_prices",
+        "item_sale_prices",
+        "equipment_stats",
+        "equipment_special_effects",
+        "equipability",
+        "fixed_pickup_contents",
+        "shop_inventories"
+      ],
+      "derived_outputs": [
+        "legal_buy_actions",
+        "legal_sell_actions",
+        "legal_equip_actions",
+        "future_purchase_feasibility"
+      ],
+      "preferred_solver": "resource-constrained shortest path / SSP",
+      "sources": [
+        "https://mamemommm.com/dq6_chart_mmm",
+        "https://github.com/Maru0137/DQRTA-chart/blob/master/SFCDQ6RTA_stone_cut_chart.txt"
+      ]
+    },
+    {
+      "id": "drops_and_steal",
+      "state_variables": [
+        "formation",
+        "defeated_monsters",
+        "active_thieves",
+        "thief_ranks",
+        "thief_alive_state"
+      ],
+      "static_parameters": [
+        "drop_item_by_monster",
+        "drop_rate_by_monster",
+        "steal_rules"
+      ],
+      "derived_outputs": [
+        "drop_or_steal_joint_distribution"
+      ],
+      "preferred_solver": "exact terminal-outcome enumeration",
+      "sources": [
+        "https://dq6.pidlio.com/dq6sfc/drop.html",
+        "https://dqwiz.net/dq6/job.html"
+      ]
+    },
+    {
+      "id": "cumulative_resources",
+      "state_variables": ["small_medals", "other_cumulative_unlock_counters"],
+      "static_parameters": ["reward_thresholds", "reward_contents"],
+      "derived_outputs": ["remaining_pickups_required_for_threshold"],
+      "preferred_solver": "threshold DP",
+      "sources": ["https://dq6.pidlio.com/dq6sfc/medal.html"]
+    },
+    {
+      "id": "timing",
+      "state_variables": ["menu_layout", "party_order", "inventory_order", "current_tactics"],
+      "emulator_parameters": [
+        "movement_frames",
+        "pickup_frames",
+        "dialogue_frames",
+        "menu_command_frames",
+        "battle_animation_frames",
+        "message_frames",
+        "flee_success_frames",
+        "flee_failure_frames",
+        "transition_frames"
+      ],
+      "preferred_solver": "measured deterministic/stochastic cost model"
+    },
+    {
+      "id": "human_execution",
+      "state_variables": ["observable_history", "decision_branch"],
+      "human_parameters": [
+        "reaction_delay_distribution",
+        "menu_input_variance",
+        "branch_recognition_error_probability",
+        "timing_window_success_probability",
+        "policy_complexity_cost"
+      ],
+      "preferred_solver": "observation-constrained policy evaluation"
+    }
+  ],
+  "global_solver": {
+    "model": "hierarchical stochastic shortest path / SMDP",
+    "local_outputs": "joint distribution over elapsed time and next resource state",
+    "policy_constraint": "competition actions may depend only on human-observable information",
+    "pruning_rule": "only prune states by dimensions whose future monotonicity or irrelevance is established"
+  }
+}
