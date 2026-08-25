@@ -1,0 +1,71 @@
+{
+  "schema_version": "0.1",
+  "dataset_id": "dq6-sfc-combat-rules-reference-v0",
+  "status": "public-reference",
+  "escape": {
+    "guaranteed_if_any": [
+      "player_preemptive_state",
+      "protagonist_level >= area_level + 5",
+      "all_enemies_incapacitated"
+    ],
+    "normal_attempt_success_probability": {
+      "1": 0.5,
+      "2": 0.5,
+      "3": 0.75,
+      "4_or_more": 0.875
+    },
+    "ranger_extra_check_after_normal_failure": {
+      "rank_1_2": 0.0,
+      "rank_3_4": 0.25,
+      "rank_5_7": 0.5,
+      "rank_8": 0.875
+    },
+    "source": "https://gcgx.games/dq6/analyze.html"
+  },
+  "preemptive": {
+    "default": {
+      "player": "1/32",
+      "enemy": "1/32"
+    },
+    "special_example": {
+      "areas": ["trukka_surroundings", "dream_cave_b1", "baptism_shrine", "wall_of_destiny_exterior"],
+      "player": "1/8",
+      "enemy": "1/32"
+    },
+    "stealth_effect": "enemy preemptive probability divided by 4",
+    "dragon_vocation_player_preemptive_multiplier": {
+      "rank_1_3": 2,
+      "rank_4_7": 3,
+      "rank_8": 4
+    },
+    "source": "https://gcgx.games/dq6/analyze.html"
+  },
+  "turn_order": {
+    "normal_action_score_reference": "(agility + 20) * uniform_random(0.5, 1.0)",
+    "priority_order_before_normal_actions": [
+      "kazap_all_party_action_minadein",
+      "kaclang_astron",
+      "forbearance_niohdachi",
+      "mercuial_thrust_shippu_zuki"
+    ],
+    "source": "https://gcgx.games/dq6/analyze.html"
+  },
+  "drop_rates": {
+    "certain": 1.0,
+    "A": 0.125,
+    "B": 0.0625,
+    "C": 0.03125,
+    "D": 0.015625,
+    "E": 0.0078125,
+    "F": 0.00390625,
+    "G": 0.000244140625,
+    "source": "https://dq6.pidlio.com/dq6sfc/drop.html"
+  },
+  "modeling_notes": [
+    "escape attempt count must be battle state",
+    "area level couples leveling decisions to future flee behavior",
+    "ranger rank changes flee transition probabilities",
+    "turn order is stochastic even at fixed displayed agility",
+    "drop outcome should be part of the battle terminal state rather than an independent expected-value bonus"
+  ]
+}
