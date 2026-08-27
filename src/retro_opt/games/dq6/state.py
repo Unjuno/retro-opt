@@ -22,6 +22,7 @@ class PartyMemberState:
     stats: tuple[tuple[str, int], ...] = ()
     equipment: tuple[tuple[str, str], ...] = ()
     personal_items: tuple[tuple[str, int], ...] = ()
+    learned_commands: frozenset[str] = frozenset()
     status: frozenset[str] = frozenset()
 
     def stat(self, name: str, default: int | None = None) -> int | None:
@@ -29,6 +30,9 @@ class PartyMemberState:
 
     def equipped(self, slot: str) -> str | None:
         return dict(self.equipment).get(slot)
+
+    def knows(self, command: str) -> bool:
+        return command in self.learned_commands
 
 
 @dataclass(frozen=True, slots=True)
@@ -99,6 +103,9 @@ class DQ6State:
 
     def chart_event_completed(self, event_id: int) -> bool:
         return event_id in self.completed_chart_events
+
+    def party_knows(self, command: str) -> bool:
+        return any(member.knows(command) for member in self.party)
 
     def owns(self, item: str) -> bool:
         if self.bag_count(item) > 0:
