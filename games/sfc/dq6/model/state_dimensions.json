@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "model_id": "dq6-route-state-dimensions-v0",
   "status": "structural-draft",
   "principle": "将来の合法action、所要時間、遷移確率のいずれかを変え得る情報は、影響がないと確認されるまでstateから落とさない",
@@ -7,9 +7,15 @@
     "progress": [
       "segment",
       "location",
-      "story_flags",
+      "permanent_semantic_event_flags",
+      "completed_chart_event_ids",
+      "event_counters",
+      "event_stage_enums",
+      "temporary_event_flags",
+      "world_unlocks",
       "resource_flags",
-      "available_future_events"
+      "available_future_events",
+      "ram_event_flag_mapping_when_known"
     ],
     "party": [
       "member_order",
@@ -30,7 +36,8 @@
       "equipment_by_slot",
       "uncollected_pickups",
       "consumed_items",
-      "sold_items"
+      "sold_items",
+      "key_item_gates"
     ],
     "economy": [
       "gold",
@@ -39,17 +46,35 @@
       "future_mandatory_or_candidate_purchases"
     ],
     "encounter": [
+      "encounter_counter_belief_when_relevant",
       "encounter_count_when_relevant",
       "current_formation",
       "remaining_route",
       "remaining_encounter_opportunities"
     ],
+    "capabilities": [
+      "learned_commands",
+      "door_keys",
+      "vehicle_unlocks",
+      "contest_eligibility",
+      "party_member_requirements"
+    ],
     "information": [
       "human_observable_history",
       "observable_random_outcomes",
       "known_drops",
-      "known_resource_consumption"
+      "known_resource_consumption",
+      "known_puzzle_solutions"
     ]
+  },
+  "event_state_kinds": {
+    "permanent_semantic_event_flags": "ゲーム意味上の不可逆な進行。RAM bitとは独立して命名する",
+    "completed_chart_event_ids": "公開SFCフラグチャート1..225の完了集合。RAM bit番号とはみなさない",
+    "event_counters": "moon_mirror_orbs_destroyed, trial_tower_mistakes, lifecod_attack_groups_defeated, raidock_memory_points等",
+    "event_stage_enums": "Hols同行、Rob追跡、牢獄の町等のmulti-step sequence",
+    "temporary_event_flags": "夜状態、一時同行、変装、狭間世界の能力低下等",
+    "world_unlocks": "関所、船、水門、飛行手段、世界復活、店/NPC配置等のreachability変化",
+    "ram_event_flag_mapping_when_known": "将来7E3D2A-7E3DFF等へsemantic eventを対応付ける検証用mapping"
   },
   "resource_roles": {
     "item": [
@@ -68,7 +93,8 @@
       "level_threshold",
       "stat_change",
       "spell_or_ability_unlock",
-      "future_farming_reduction"
+      "future_farming_reduction",
+      "area_level_escape_or_proficiency_interaction"
     ]
   },
   "feasibility_examples": [
@@ -82,12 +108,16 @@
     },
     {
       "action": "route_unlock",
-      "requires": "required story flag or key resource"
+      "requires": "required semantic event/world unlock/key resource/capability"
+    },
+    {
+      "action": "advance_multi_step_event",
+      "requires": "event_stage_enum is at the required stage and temporary escort/state is valid"
     },
     {
       "action": "candidate_boss_policy",
       "requires": "resources required by that policy are available"
     }
   ],
-  "dominance_warning": "timeだけが短いstateを優越とみなさない。item/gold/stats/flags/menu layout等の将来価値を同時に比較できる場合にのみ安全にpruneする"
+  "dominance_warning": "timeだけが短いstateを優越とみなさない。item/gold/stats/events/counters/stages/menu layout等の将来価値を同時に比較できる場合にのみ安全にpruneする"
 }
