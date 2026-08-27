@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1",
+  "model_id": "dq6-sfc-story-phases-v0",
+  "status": "organizational",
+  "coverage_rule": "every chart_event_id 1..225 belongs to exactly one phase",
+  "phases": [
+    {"id":"opening_to_wagon","chart_event_range":[1,27],"terminal_semantic_gate":"wagon_unlocked"},
+    {"id":"ra_mirror_quest","chart_event_range":[28,69],"terminal_semantic_gate":"dream_mudo_revealed"},
+    {"id":"real_mudo","chart_event_range":[70,82],"terminal_semantic_gate":"post_real_mudo_world_state"},
+    {"id":"arcbolt_to_jamirus","chart_event_range":[83,101],"terminal_semantic_gate":"hyotan_island_unlocked"},
+    {"id":"holstock_to_flying_bed","chart_event_range":[102,123],"terminal_semantic_gate":"flying_bed_unlocked"},
+    {"id":"forn_to_mermaid_harp","chart_event_range":[124,142],"terminal_semantic_gate":"mermaid_harp_obtained"},
+    {"id":"ultimate_key_and_mount_snow","chart_event_range":[143,150],"terminal_semantic_gate":"desseo_pass_obtained"},
+    {"id":"legendary_equipment_parallel_branches","chart_event_range":[151,179],"terminal_semantic_gate":"ramias_sword_obtained","note":"Longadeseo sword branch, Best Dresser/Carpet branch, Lifecod/Sebas branch, Gracos/Calberona branch, Orgo/Sphida branches run partly in parallel and merge at event 179"},
+    {"id":"hell_cloud_to_hazama_access","chart_event_range":[180,191],"terminal_semantic_gate":"hazama_access_unlocked"},
+    {"id":"hazama_to_ending","chart_event_range":[192,225],"terminal_semantic_gate":"normal_ending_complete"}
+  ]
+}
