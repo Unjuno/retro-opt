@@ -1,0 +1,105 @@
+{
+  "schema_version": "0.1",
+  "dataset_id": "dq6-sfc-ram-progression-flags-reference-v0",
+  "status": "public-reference-not-yet-emulator-cross-checked",
+  "ram_region": "7E3D2A-7E3DFF",
+  "note": "Only progression-relevant named bits are included here. This is not a complete dump of all treasure/NPC flags. chart_event_id and RAM bit identity remain separate concepts.",
+  "flags": [
+    {"address":"7E3D2E","mask":"02","meaning_ja":"ひょうたん島手に入れた","semantic_gate":"hyotan_island_unlocked","confidence":"high"},
+    {"address":"7E3D2E","mask":"10","meaning_ja":"空飛ぶベッド手に入れた","semantic_gate":"flying_bed_unlocked","confidence":"high"},
+    {"address":"7E3D2E","mask":"20","meaning_ja":"ハッサン仲間","semantic_gate":"hassan_joined","confidence":"high"},
+    {"address":"7E3D2E","mask":"40","meaning_ja":"ミレーユ仲間","semantic_gate":"mireyu_joined","confidence":"high"},
+    {"address":"7E3D2E","mask":"80","meaning_ja":"バーバラ仲間","semantic_gate":"barbara_joined","confidence":"high"},
+
+    {"address":"7E3D35","mask":"20","meaning_ja":"夢見のしずく手に入れた","semantic_gate":"dream_dew_obtained","confidence":"high"},
+    {"address":"7E3D35","mask":"40","meaning_ja":"カガミのカギ手に入れた","semantic_gate":"mirror_key_obtained","confidence":"high"},
+    {"address":"7E3D35","mask":"80","meaning_ja":"ラーのカガミ手に入れた","semantic_gate":"ra_mirror_obtained","confidence":"high"},
+
+    {"address":"7E3D36","mask":"01","meaning_ja":"王の書状手に入れた","semantic_gate":"royal_letter_obtained","confidence":"high"},
+    {"address":"7E3D36","mask":"04","meaning_ja":"黄金のつるはし手に入れた","semantic_gate":"golden_pickaxe_obtained","confidence":"high"},
+    {"address":"7E3D36","mask":"08","meaning_ja":"勇気のかけら手に入れた","semantic_gate":"courage_fragment_obtained","confidence":"high"},
+    {"address":"7E3D36","mask":"10","meaning_ja":"水門のカギ手に入れた","semantic_gate":"watergate_key_obtained","confidence":"high"},
+    {"address":"7E3D36","mask":"20","meaning_ja":"マーメイドハープ手に入れた","semantic_gate":"mermaid_harp_obtained","confidence":"high"},
+    {"address":"7E3D36","mask":"40","meaning_ja":"砂の器手に入れた","semantic_gate":"sand_urn_obtained","confidence":"high"},
+    {"address":"7E3D36","mask":"80","meaning_ja":"さびた剣手に入れた","semantic_gate":"rusted_sword_obtained","confidence":"high"},
+
+    {"address":"7E3D37","mask":"01","meaning_ja":"スフィーダのたて手に入れた","semantic_gate":"sphida_shield_obtained","confidence":"high"},
+    {"address":"7E3D37","mask":"02","meaning_ja":"セバスのかぶと手に入れた","semantic_gate":"sebas_helm_obtained","confidence":"high"},
+    {"address":"7E3D37","mask":"04","meaning_ja":"オルゴーのよろい手に入れた","semantic_gate":"orgo_armor_obtained","confidence":"high"},
+    {"address":"7E3D37","mask":"08","meaning_ja":"ろうごくのカギ手に入れた","semantic_gate":"prison_key_obtained","confidence":"high"},
+    {"address":"7E3D37","mask":"10","meaning_ja":"へいしのふく４つ手に入れた","semantic_gate":"soldier_uniforms_obtained","confidence":"high"},
+    {"address":"7E3D37","mask":"80","meaning_ja":"ムドーの城 ムドー倒してきた","semantic_gate":"post_real_mudo_world_state","confidence":"medium","note":"separate flag 7E3D60:01 explicitly records the final Mudo defeat"},
+
+    {"address":"7E3D38","mask":"04","meaning_ja":"海底神殿 グラコスイベント終わった","semantic_gate":"gracos_defeated","confidence":"high"},
+    {"address":"7E3D39","mask":"08","meaning_ja":"主人公が一つになった","semantic_gate":"hero_body_fused","confidence":"high"},
+    {"address":"7E3D3B","mask":"80","meaning_ja":"水門2開けた","semantic_gate":"watergate_2_open","confidence":"high"},
+    {"address":"7E3D3C","mask":"10","meaning_ja":"水門1開けた","semantic_gate":"watergate_1_open","confidence":"high"},
+    {"address":"7E3D3C","mask":"40","meaning_ja":"はざまの世界に来たことがある","semantic_gate":"hazama_visited","confidence":"high"},
+
+    {"address":"7E3D44","mask":"40","meaning_ja":"ライフコッド(下) 魔物を全て倒した","semantic_gate":"lifecod_attack_groups_cleared","confidence":"high"},
+    {"address":"7E3D43","mask":"08","meaning_ja":"ライフコッド(下) 魔王の使い倒した","semantic_gate":"lifecod_attack_complete","confidence":"high"},
+
+    {"address":"7E3D50","mask":"01","meaning_ja":"クリアベール(上) 空飛ぶベッドを手に入れた","semantic_gate":"flying_bed_story_complete","confidence":"high"},
+    {"address":"7E3D50","mask":"20","meaning_ja":"カルベローナ復活","semantic_gate":"calberona_restored","confidence":"high"},
+    {"address":"7E3D52","mask":"01","meaning_ja":"カルベローナ マダンテ覚えた","semantic_gate":"barbara_madante_event_complete","confidence":"high"},
+    {"address":"7E3D52","mask":"02","meaning_ja":"カルベローナ じゅうたん","semantic_gate":"magic_carpet_unlocked","confidence":"medium","note":"source label is abbreviated; semantic meaning should be emulator-cross-checked"},
+
+    {"address":"7E3D55","mask":"04","meaning_ja":"ロンガデセオ 剣を鍛えてもらえることになった","semantic_gate":"sally_reforging_started","confidence":"high"},
+    {"address":"7E3D55","mask":"20","meaning_ja":"ロンガデセオ ラミアスの剣受け取った","semantic_gate":"ramias_sword_obtained","confidence":"high"},
+    {"address":"7E3D56","mask":"40","meaning_ja":"マウントスノー ザムに合言葉を聞いた","semantic_gate":"ice_cave_password_enabled","confidence":"high"},
+    {"address":"7E3D56","mask":"80","meaning_ja":"マウントスノー デセオのパスを受け取った","semantic_gate":"desseo_pass_obtained","confidence":"high"},
+
+    {"address":"7E3D58","mask":"04","meaning_ja":"絶望の町 エンデと話した","semantic_gate":"ende_contact_started","confidence":"high"},
+    {"address":"7E3D58","mask":"20","meaning_ja":"絶望の町 エンデが希望を取り戻した","semantic_gate":"ende_hope_restored","confidence":"high"},
+    {"address":"7E3D58","mask":"40","meaning_ja":"絶望の町 エンデの防具を手に入れた","semantic_gate":"ende_equipment_chosen","confidence":"high"},
+    {"address":"7E3D58","mask":"80","meaning_ja":"絶望の町 町人が希望を取り戻した","semantic_gate":"hazama_power_restored","confidence":"high"},
+    {"address":"7E3D59","mask":"01","meaning_ja":"絶望の町 兜を選んだ","semantic_gate":"ende_choice_helm","confidence":"high"},
+    {"address":"7E3D59","mask":"02","meaning_ja":"絶望の町 鎧を選んだ","semantic_gate":"ende_choice_armor","confidence":"high"},
+    {"address":"7E3D59","mask":"04","meaning_ja":"絶望の町 盾を選んだ","semantic_gate":"ende_choice_shield","confidence":"high"},
+    {"address":"7E3D5A","mask":"04","meaning_ja":"ザクソン エンデの道具を受け取った","semantic_gate":"ende_tools_obtained","confidence":"high"},
+
+    {"address":"7E3D5A","mask":"08","meaning_ja":"牢獄の町 門番を倒した","semantic_gate":"prison_town_gate_guard_defeated","confidence":"high"},
+    {"address":"7E3D5A","mask":"10","meaning_ja":"牢獄の町 中に入れるようになった","semantic_gate":"prison_town_access","confidence":"high"},
+    {"address":"7E3D5C","mask":"40","meaning_ja":"牢獄の町 アクバーを倒した","semantic_gate":"akbar_defeated","confidence":"high"},
+    {"address":"7E3D5D","mask":"10","meaning_ja":"牢獄の町 鎖を外した","semantic_gate":"climto_chains_removed","confidence":"high"},
+    {"address":"7E3D5D","mask":"20","meaning_ja":"牢獄の町 真実のオーブを受け取った","semantic_gate":"truth_orb_obtained","confidence":"high"},
+    {"address":"7E3D5E","mask":"08","meaning_ja":"牢獄の町 クリムトが仲間になった","semantic_gate":"climto_joined","confidence":"high"},
+
+    {"address":"7E3D60","mask":"01","meaning_ja":"ムドーの城 ムドー本気倒した","semantic_gate":"real_mudo_defeated","confidence":"high"},
+    {"address":"7E3D6A","mask":"40","meaning_ja":"フォーン城 ミラルゴ倒してきた","semantic_gate":"miralgo_defeated","confidence":"high"},
+    {"address":"7E3D6C","mask":"10","meaning_ja":"ホルストック 王からカギをもらった","semantic_gate":"magic_key_obtained","confidence":"high"},
+    {"address":"7E3D6C","mask":"40","meaning_ja":"デスタムーア倒した","semantic_gate":"normal_ending_complete","confidence":"high"},
+    {"address":"7E3D71","mask":"20","meaning_ja":"ペガサスが狭間へ行ける","semantic_gate":"hazama_access_unlocked","confidence":"high"},
+
+    {"address":"7E3D74","mask":"08","meaning_ja":"夢見の洞窟 ブラディーポ倒した","semantic_gate":"bloody_paw_defeated","confidence":"high"},
+    {"address":"7E3D75","mask":"01","meaning_ja":"アモールの洞窟 ホラービースト倒した","semantic_gate":"horror_beast_defeated","confidence":"high"},
+    {"address":"7E3D75","mask":"08","meaning_ja":"地底魔城 ムドー倒した","semantic_gate":"dream_mudo_defeated","confidence":"high"},
+    {"address":"7E3D77","mask":"08","meaning_ja":"氷の洞窟 入り口の扉開いた","semantic_gate":"ice_cave_door_open","confidence":"high"},
+    {"address":"7E3D77","mask":"10","meaning_ja":"幸せの国 ジャミラス倒した","semantic_gate":"jamirus_defeated","confidence":"high"},
+    {"address":"7E3D78","mask":"01","meaning_ja":"洗礼の祠 洗礼の儀式が終了した","semantic_gate":"hols_baptism_complete","confidence":"high"},
+    {"address":"7E3D78","mask":"02","meaning_ja":"洗礼の祠 試練その１を倒した","semantic_gate":"baptism_trial_1_defeated","confidence":"high"},
+    {"address":"7E3D78","mask":"04","meaning_ja":"洗礼の祠 試練その２を倒した","semantic_gate":"baptism_trial_2_defeated","confidence":"high"},
+    {"address":"7E3D78","mask":"08","meaning_ja":"洗礼の祠 試練その３を倒した","semantic_gate":"baptism_trial_3_defeated","confidence":"high"},
+    {"address":"7E3D79","mask":"20","meaning_ja":"アークボルトの洞窟 開通した","semantic_gate":"travelers_cave_rocks_removed","confidence":"high"},
+
+    {"address":"7E3D7D","mask":"01","meaning_ja":"抜け道見つけられる","semantic_gate":"river_passage_discovery_enabled","confidence":"high"},
+    {"address":"7E3D7D","mask":"02","meaning_ja":"きこりの頼み聞いた","semantic_gate":"woodcutter_request_accepted","confidence":"high"},
+    {"address":"7E3D7D","mask":"04","meaning_ja":"家を建てた","semantic_gate":"woodcutter_house_built","confidence":"high"},
+    {"address":"7E3D7D","mask":"08","meaning_ja":"きこりのヒント聞いた","semantic_gate":"woodcutter_hint_heard","confidence":"high"},
+    {"address":"7E3D7F","mask":"40","meaning_ja":"氷の祠 マウントスノーの呪いが解けた","semantic_gate":"mount_snow_curse_lifted","confidence":"high"},
+
+    {"address":"7E3D86","mask":"80","meaning_ja":"月鏡の塔 夢見のしずく使った","semantic_gate":"dream_dew_used_on_barbara","confidence":"high"},
+    {"address":"7E3D88","mask":"02","meaning_ja":"月鏡の塔 左上の玉壊した","semantic_gate":"moon_mirror_orb_left_upper","confidence":"high"},
+    {"address":"7E3D88","mask":"04","meaning_ja":"月鏡の塔 左下の玉壊した","semantic_gate":"moon_mirror_orb_left_lower","confidence":"high"},
+    {"address":"7E3D88","mask":"08","meaning_ja":"月鏡の塔 右上の玉壊した","semantic_gate":"moon_mirror_orb_right_upper","confidence":"high"},
+    {"address":"7E3D88","mask":"10","meaning_ja":"月鏡の塔 右下の玉壊した","semantic_gate":"moon_mirror_orb_right_lower","confidence":"high"},
+    {"address":"7E3D88","mask":"20","meaning_ja":"月鏡の塔 玉を全部壊した","semantic_gate":"moon_mirror_central_room_lowered","confidence":"high"}
+  ],
+  "non_bit_event_state": [
+    {"address":"7E3D29","meaning_ja":"ベストドレッサーコンテストのランク","model_field":"event_counter_or_stage:best_dresser_rank"},
+    {"address":"7E3E08","meaning_ja":"試練の塔でミスした回数","model_field":"event_counter:trial_tower_mistakes"},
+    {"address":"7E3E0C","meaning_ja":"魔王の使いに負けた回数","model_field":"event_counter:maou_no_tsukai_losses"}
+  ],
+  "source": "https://w.atwiki.jp/dq_binary/pages/22.html",
+  "cross_check_source": "https://w.atwiki.jp/dq_binary/pages/7.html"
+}
