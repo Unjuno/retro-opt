@@ -39,8 +39,11 @@ class DQ6State:
     からこの構造へ変換する。
 
     DQ6のroute optimizationでは、EXPだけでなく item / equipment / gold / stats /
-    flags / resource placement / cumulative counters が数イベント先の可否・戦闘時間・
+    events / resource placement / cumulative counters が数イベント先の可否・戦闘時間・
     勝率・金策を変えるため、それらを state の一級要素として保持する。
+
+    `completed_chart_events` は公開SFCフラグチャートの参照IDであり、RAM bit IDではない。
+    `story_flags` は人間可読なsemantic event flagを保持する。RAM mappingは別レイヤで扱う。
     """
 
     segment: str
@@ -55,9 +58,23 @@ class DQ6State:
     # item所持とは別に将来条件を変える数値を保持する。
     counters: tuple[tuple[str, int], ...] = ()
 
-    # 回収済み/売却済み/消費済み等を含む不可逆な進行はflagで保持する。
+    # ゲーム意味上の不可逆な進行。実RAMのbit番号とは独立した名前を使う。
     story_flags: frozenset[str] = frozenset()
     resource_flags: frozenset[str] = frozenset()
+
+    # 公開フラグチャート 1..225 の完了状態。RAM event flag IDではない。
+    completed_chart_events: frozenset[int] = frozenset()
+
+    # Booleanで表現できないイベント進行。
+    # 例: moon_mirror_orbs_destroyed=0..4, raidock_memory_points=0..6
+    event_counters: tuple[tuple[str, int], ...] = ()
+    # 例: hols_escort_stage, rob_follow_stage, prison_town_stage
+    event_stages: tuple[tuple[str, str], ...] = ()
+
+    # mapを跨がず消える/一時的にlegal actionを変えるイベント状態。
+    temporary_event_flags: frozenset[str] = frozenset()
+    # 関所・船・水門・飛行手段・世界復活など地理的到達可能性を変える状態。
+    world_unlocks: frozenset[str] = frozenset()
 
     encounter_count: int = 0
     observable_tags: frozenset[str] = frozenset()
@@ -73,6 +90,15 @@ class DQ6State:
 
     def counter(self, name: str, default: int = 0) -> int:
         return dict(self.counters).get(name, default)
+
+    def event_counter(self, name: str, default: int = 0) -> int:
+        return dict(self.event_counters).get(name, default)
+
+    def event_stage(self, name: str, default: str | None = None) -> str | None:
+        return dict(self.event_stages).get(name, default)
+
+    def chart_event_completed(self, event_id: int) -> bool:
+        return event_id in self.completed_chart_events
 
     def owns(self, item: str) -> bool:
         if self.bag_count(item) > 0:
