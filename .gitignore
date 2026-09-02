@@ -7,7 +7,6 @@
 *.gbc
 *.gba
 *.gen
-*.md
 *.rom
 
 # BIOS / firmware images
