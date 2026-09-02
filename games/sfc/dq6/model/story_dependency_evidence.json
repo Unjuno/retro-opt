@@ -1,0 +1,218 @@
+{
+  "schema_version": "0.1",
+  "dataset_id": "dq6-sfc-story-dependency-evidence-v0",
+  "status": "research-derived; emulator cross-check still required for uncertain relations",
+  "purpose": "Separate true optimization constraints from walkthrough order, knowledge-only information, resource/capability gates, and unresolved dependencies.",
+  "relations": [
+    {
+      "id": "dog_blocks_dream_well",
+      "subject": "chart_event:6",
+      "dependency": "chart_event:5",
+      "kind": "hard_event",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "Without the Trukka mayor-house dog event, a person blocks the well hut entrance.",
+      "sources": ["https://dqrta.com/chart/story01/", "http://hori3948.g2.xrea.com/dq6/dq6-event1.html"]
+    },
+    {
+      "id": "river_passage_discovery",
+      "subject": "chart_event:30",
+      "dependency": "chart_event:29",
+      "kind": "hard_event",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "Knowing the hidden entrance location is insufficient; the woodcutter event must enable discovery first.",
+      "sources": ["https://dqrta.com/chart/story01/", "http://hori3948.g2.xrea.com/dq6/dq6-event1.html"]
+    },
+    {
+      "id": "amor_four_npc_set",
+      "subject": "chart_event:52",
+      "dependency": "four_required_npc_talks",
+      "kind": "unordered_set_gate",
+      "optimizer_action": "model_as_set_not_sequence",
+      "confidence": "high",
+      "note": "The four required Amor conversations are explicitly order-independent. Their walking order belongs to the local map solver.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event1.html", "https://dqrta.com/chart/story01/"]
+    },
+    {
+      "id": "moon_mirror_orbs",
+      "subject": "chart_event:61",
+      "dependency": "moon_mirror_orbs_destroyed=4",
+      "kind": "set_counter_gate",
+      "optimizer_action": "model_as_counter_and_individual_orb_flags",
+      "confidence": "high",
+      "note": "All four purple orbs must be destroyed; route order is an internal movement decision rather than a fixed story order.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event1.html", "https://dqrta.com/chart/story01/"]
+    },
+    {
+      "id": "kalkado_five_npc_set",
+      "subject": "chart_event:95",
+      "dependency": "five_required_npc_talks",
+      "kind": "unordered_set_gate",
+      "optimizer_action": "model_as_set_not_sequence",
+      "confidence": "high",
+      "note": "The five Kalkado conversations are explicitly order-independent and collectively trigger night.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event2.html"]
+    },
+    {
+      "id": "clearvale_bed_join",
+      "subject": "chart_event:123",
+      "dependency": "chart_events:120,122",
+      "kind": "hard_join",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "The Clearvale family event and Courage Fragment branch join before the Flying Bed is obtained.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event2.html", "https://way78.com/dq6/sfc/chart2.html"]
+    },
+    {
+      "id": "magician_tower_inpas",
+      "subject": "chart_event:132",
+      "dependency": "command:inpas",
+      "kind": "hard_capability",
+      "optimizer_action": "enforce_separately_from_chart_dependencies",
+      "confidence": "high",
+      "note": "The story prerequisite alone is insufficient; tower entry requires using Inpas at the entrance.",
+      "sources": ["https://way78.com/dq6/sfc/chart2.html"]
+    },
+    {
+      "id": "ice_cave_zam_flag",
+      "subject": "chart_event:149",
+      "dependency": "chart_event:148",
+      "kind": "hard_event",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "This is not merely password knowledge. SFC references explicitly state the sealed door cannot be passed before the Zam-priest event.",
+      "sources": ["https://way78.com/dq6/sfc/dnmap15.html", "http://hori3948.g2.xrea.com/dq6/dq6-event2.html"]
+    },
+    {
+      "id": "post_harp_parallel_frontier",
+      "subject": "after:chart_event:142",
+      "dependency": "branches:143,144,159,160,170,171,178",
+      "kind": "parallel_frontier",
+      "optimizer_action": "preserve_order_freedom",
+      "confidence": "high",
+      "note": "After Mermaid Harp acquisition, several later requirements become independent branches. Do not impose walkthrough order globally.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event2.html", "http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://way78.com/dq6/sfc/chart3.html"]
+    },
+    {
+      "id": "calberona_join",
+      "subject": "chart_event:172",
+      "dependency": "chart_events:170,171 + item:sand_urn + party:barbara",
+      "kind": "hard_join_resource_capability",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "Sand Urn acquisition and Gracos completion join; Barbara must perform the urn action.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://way78.com/dq6/sfc/chart3.html"]
+    },
+    {
+      "id": "magic_carpet_join",
+      "subject": "chart_event:174",
+      "dependency": "chart_events:159,173 + item:plush_rug",
+      "kind": "hard_join_resource",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "Best Dresser rank-3 reward and Calberona/Madante chain join to create the Magic Carpet.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://way78.com/dq6/sfc/chart3.html"]
+    },
+    {
+      "id": "grace_ritual_is_knowledge_only",
+      "subject": "grace_past_ritual_sequence",
+      "dependency": "orgo_armor_location_knowledge",
+      "kind": "knowledge_only",
+      "optimizer_action": "do_not_add_to_hard_progression_graph",
+      "confidence": "high",
+      "note": "The past-Grace ritual reveals the hidden staircase location, but the staircase can be found directly if the player already knows the location.",
+      "sources": ["https://way78.com/dq6/sfc/chart3.html", "https://gamewith.jp/dq6/560687", "https://eiki-rta-tas.blogspot.com/2024/01/sfcdq6rta.html"]
+    },
+    {
+      "id": "mysterious_cave_hints_are_knowledge_only",
+      "subject": "chart_event:178",
+      "dependency": "puzzle_hint_npcs",
+      "kind": "knowledge_only",
+      "optimizer_action": "do_not_add_to_hard_progression_graph",
+      "confidence": "high",
+      "note": "Puzzle hints are informational; the known route can be executed without visiting the hint NPCs.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://muumuug.sakura.ne.jp/dq6/kouryaku03.html"]
+    },
+    {
+      "id": "legendary_equipment_join",
+      "subject": "chart_event:179",
+      "dependency": "chart_events:158,169,177,178",
+      "kind": "hard_join",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "Sword reforging initiation, Sebas Helm, Orgo Armor, and Sphida Shield branches must all be complete before receiving Ramias Sword.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html"]
+    },
+    {
+      "id": "sacred_shrine_symbols",
+      "subject": "chart_event:180",
+      "dependency": "hero_equips_four_legendary_items + correct_symbol_configuration",
+      "kind": "hard_capability_with_knowledge_component",
+      "optimizer_action": "enforce_equipment_but_treat_symbol_discovery_as_knowledge_only",
+      "confidence": "high",
+      "note": "The four legendary items are required, while learning the symbols by using the items is not itself a progression event if the configuration is already known.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://way78.com/dq6/sfc/chart3.html"]
+    },
+    {
+      "id": "tenma_last_key_join",
+      "subject": "chart_event:189",
+      "dependency": "chart_events:143,188 + item:ultimate_key",
+      "kind": "hard_join_resource",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "Ultimate Key is an independent earlier branch that joins the Zenith-well route at Tenma Tower.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://way78.com/dq6/sfc/chart3.html"]
+    },
+    {
+      "id": "lifecod_nine_groups",
+      "subject": "chart_event:164",
+      "dependency": "lifecod_attack_groups_defeated=9",
+      "kind": "set_counter_gate",
+      "optimizer_action": "model_as_counter_plus_spatial_subproblem",
+      "confidence": "high",
+      "note": "Nine enemy groups must all be defeated. Their traversal/order is a local route problem, not nine fixed story edges.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://way78.com/dq6/sfc/chart3.html"]
+    },
+    {
+      "id": "raidock_six_memory_points",
+      "subject": "chart_event:168",
+      "dependency": "raidock_memory_points=6",
+      "kind": "set_counter_gate",
+      "optimizer_action": "model_as_counter_plus_spatial_subproblem",
+      "confidence": "high",
+      "note": "Six memory points must be activated before the throne-room point appears.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html"]
+    },
+    {
+      "id": "secret_lake_information_is_optional",
+      "subject": "secret_lake_location",
+      "dependency": "Morgan information / old-mine chest",
+      "kind": "knowledge_only",
+      "optimizer_action": "do_not_add_to_hard_progression_graph",
+      "confidence": "high",
+      "note": "If the lake location is known, the mine chest and 5000G information purchase can be skipped.",
+      "sources": ["http://dq6.d-navi.net/sfc/chart4.html", "https://gamewith.jp/dq6/560689"]
+    },
+    {
+      "id": "hazama_restore_vs_lake_order",
+      "subject": "chart_events:197,198,199",
+      "dependency": "whether lake progression is actually legal before Ende equipment/stat restoration",
+      "kind": "uncertain_hidden_gate",
+      "optimizer_action": "verify_before_prune_or_exploit",
+      "confidence": "medium",
+      "note": "The external flag chart lists event 198 as depending directly on 191, but multiple walkthroughs state story progression resumes only after Ende equipment is completed. This discrepancy needs emulator/RAM testing before the optimizer may exploit an early-lake branch.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html", "https://dq6.pidlio.com/dq6sfc/story09.html", "https://gamewith.jp/dq6/560689"]
+    },
+    {
+      "id": "truth_orb_gate",
+      "subject": "chart_event:219",
+      "dependency": "item:truth_orb + chart_event:218",
+      "kind": "hard_resource",
+      "optimizer_action": "enforce",
+      "confidence": "high",
+      "note": "The cape warp is an explicit key-item action, not merely a location unlock.",
+      "sources": ["http://hori3948.g2.xrea.com/dq6/dq6-event3.html"]
+    }
+  ]
+}
